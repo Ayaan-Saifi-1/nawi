@@ -9,6 +9,7 @@ import Header from './components/layout/Header.jsx';
 import Sidebar from './components/layout/Sidebar.jsx';
 import Footer from './components/layout/Footer.jsx';
 import InPageNotice from './components/common/InPageNotice.jsx';
+import { login } from './services/auth.service.js';
 
 const LoginPage = lazy(() => import('./pages/auth/LoginPage.jsx'));
 const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage.jsx'));
@@ -102,6 +103,80 @@ function VerifyLayout({ isMobileOpen, setIsMobileOpen, isSidebarCollapsed, child
   );
 }
 
+function AutoLoginHandler({ children }) {
+  const { isAuthenticated, setAuth } = useAuthStore();
+  const [checking, setChecking] = useState(() => {
+    if (useAuthStore.getState().isAuthenticated) return false;
+    if (typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true') {
+      return false;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setChecking(false);
+      return;
+    }
+
+    if (typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true') {
+      setChecking(false);
+      return;
+    }
+
+    let isMounted = true;
+    login({ email: 'admin@nawi.gov.in', password: 'Password123!' })
+      .then((res) => {
+        if (isMounted && res?.data?.token && res?.data?.user) {
+          setAuth({ token: res.data.token, user: res.data.user });
+        }
+      })
+      .catch((err) => {
+        console.warn('Default admin auto-login:', err?.message);
+      })
+      .finally(() => {
+        if (isMounted) setChecking(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated, setAuth]);
+
+  if (checking) {
+    return (
+      <div
+        className="app-route-loading"
+        role="status"
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#0f172a',
+          color: '#94a3b8',
+          gap: 12,
+        }}
+      >
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            border: '3px solid #334155',
+            borderTopColor: '#38bdf8',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+          }}
+        />
+        <p style={{ margin: 0, fontSize: 14 }}>Connecting as Administrator...</p>
+      </div>
+    );
+  }
+
+  return children;
+}
+
 export default function App() {
   const { fontSizeStep, highContrast } = useThemeStore();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -119,14 +194,15 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <Header
-          isMobileOpen={isMobileOpen}
-          onToggleMobileMenu={() => setIsMobileOpen((prev) => !prev)}
-          isSidebarCollapsed={isSidebarCollapsed}
-          onToggleSidebar={() => setIsSidebarCollapsed((prev) => !prev)}
-        />
-        <Suspense fallback={<div className="app-route-loading" role="status">Loading page…</div>}>
-        <Routes>
+        <AutoLoginHandler>
+          <Header
+            isMobileOpen={isMobileOpen}
+            onToggleMobileMenu={() => setIsMobileOpen((prev) => !prev)}
+            isSidebarCollapsed={isSidebarCollapsed}
+            onToggleSidebar={() => setIsSidebarCollapsed((prev) => !prev)}
+          />
+          <Suspense fallback={<div className="app-route-loading" role="status">Loading page…</div>}>
+          <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/verify"
@@ -266,6 +342,7 @@ export default function App() {
         </Suspense>
 
         <Footer />
+        </AutoLoginHandler>
       </BrowserRouter>
     </QueryClientProvider>
   );

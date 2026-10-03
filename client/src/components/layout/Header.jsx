@@ -60,6 +60,9 @@ export default function Header({ isMobileOpen, onToggleMobileMenu, isSidebarColl
   }, []);
 
   const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('nawi_manual_logout', 'true');
+    }
     logout();
     navigate('/login');
   };

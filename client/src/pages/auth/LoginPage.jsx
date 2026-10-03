@@ -49,6 +49,9 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const res = await login({ email, password });
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('nawi_manual_logout');
+      }
       setAuth({ token: res.data.token, user: res.data.user });
       // Toasts disabled as requested
       navigate('/dashboard');
@@ -63,6 +66,35 @@ export default function LoginPage() {
         setLoginError('The sign-in service is unavailable right now. Please try again later.');
       } else {
         setLoginError(serverMessage || `Sign-in was rejected (HTTP ${status}). Please check your details or contact your administrator.`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleQuickLogin = async (demoEmail, demoPassword) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
+    setLoading(true);
+    setLoginError('');
+    try {
+      const res = await login({ email: demoEmail, password: demoPassword });
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('nawi_manual_logout');
+      }
+      setAuth({ token: res.data.token, user: res.data.user });
+      navigate('/dashboard');
+    } catch (error) {
+      const status = error.response?.status;
+      const serverMessage = error.response?.data?.error?.message;
+      if (!error.response) {
+        setLoginError('Unable to reach the sign-in service. Check that the server is running, then try again.');
+      } else if (status === 401) {
+        setLoginError('Email or password is incorrect. Please check your details and try again.');
+      } else if (status >= 500) {
+        setLoginError('The sign-in service is unavailable right now. Please try again later.');
+      } else {
+        setLoginError(serverMessage || `Sign-in was rejected (HTTP ${status}).`);
       }
     } finally {
       setLoading(false);
@@ -129,25 +161,25 @@ export default function LoginPage() {
         <div className="login-demo-creds">
           <p style={{ marginBottom: 8 }}><strong>{t('login_demo')}</strong></p>
           <div className="login-role-grid">
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('admin@nawi.gov.in'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('admin@nawi.gov.in', 'Password123!')}>
               Admin
             </button>
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('tech@npl.res.in'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('tech@npl.res.in', 'Password123!')}>
               Lab Tech
             </button>
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('reviewer@doca.gov.in'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('reviewer@doca.gov.in', 'Password123!')}>
               Reviewer
             </button>
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('labadmin@npl.res.in'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('labadmin@npl.res.in', 'Password123!')}>
               Lab Admin
             </button>
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('officer@doca.gov.in'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('officer@doca.gov.in', 'Password123!')}>
               DoCA Officer
             </button>
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('rep@averyindia.com'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('rep@averyindia.com', 'Password123!')}>
               Manufacturer
             </button>
-            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => { setEmail('auditor@nawi.gov.in'); setPassword('Password123!'); }}>
+            <button type="button" className="gov-btn gov-btn-outline" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => handleQuickLogin('auditor@nawi.gov.in', 'Password123!')}>
               Auditor
             </button>
           </div>

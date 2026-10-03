@@ -55,6 +55,9 @@ apiClient.interceptors.response.use(
     const isLoginRequest = error.config?.url?.includes('/auth/login');
 
     if (status === 401 && !isLoginRequest) {
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('nawi_manual_logout', 'true');
+      }
       useAuthStore.getState().logout();
       useNotificationStore.getState().addToast({ type: 'error', code: 'AUTH_REQUIRED', message: 'Your session has expired. Please sign in again.' });
       if (typeof window !== 'undefined' && window.location.pathname !== '/login') window.location.assign('/login');
