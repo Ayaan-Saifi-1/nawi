@@ -48,7 +48,11 @@ function RoleGuard({ allowedRoles, children }) {
     }
   }, [user?.role, allowedRoles, addToast]);
   if (!user || !user.role) {
-    return <Navigate to="/login" replace />;
+    const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
+    if (isManualLogout) {
+      return <Navigate to="/login" replace />;
+    }
+    return <Navigate to="/dashboard" replace />;
   }
   if (user.role !== 'admin' && allowedRoles && !allowedRoles.includes(user.role)) {
     return <Navigate to="/dashboard" replace />;
@@ -56,10 +60,54 @@ function RoleGuard({ allowedRoles, children }) {
   return children;
 }
 
+function LoginRouteGuard({ children }) {
+  const { isAuthenticated } = useAuthStore();
+  const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
+
+  if (isAuthenticated || !isManualLogout) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
+}
+
 function ProtectedLayout({ isMobileOpen, setIsMobileOpen, isSidebarCollapsed }) {
   const { isAuthenticated } = useAuthStore();
-  if (!isAuthenticated) {
+  const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
+
+  if (!isAuthenticated && isManualLogout) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div
+        className="app-route-loading"
+        role="status"
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#0f172a',
+          color: '#94a3b8',
+          gap: 12,
+        }}
+      >
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            border: '3px solid #334155',
+            borderTopColor: '#38bdf8',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+          }}
+        />
+        <p style={{ margin: 0, fontSize: 14 }}>Loading Dashboard...</p>
+      </div>
+    );
   }
 
   return (
@@ -203,7 +251,14 @@ export default function App() {
           />
           <Suspense fallback={<div className="app-route-loading" role="status">Loading page…</div>}>
           <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={
+              <LoginRouteGuard>
+                <LoginPage />
+              </LoginRouteGuard>
+            }
+          />
           <Route
             path="/verify"
             element={

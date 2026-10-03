@@ -25,6 +25,14 @@ export default function LoginPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showBalanceModel, setShowBalanceModel] = useState(false);
+  const { isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
+    if (isAuthenticated || !isManualLogout) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showModel = () => setShowBalanceModel(true);
