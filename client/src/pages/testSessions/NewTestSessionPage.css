@@ -1,0 +1,166 @@
+.new-session-page {
+  width: min(100%, 1080px);
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.new-session-page > .gov-card {
+  min-width: 0;
+}
+
+.session-demo-button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.session-demo-notice {
+  margin: -12px 0 16px;
+  padding: 10px 12px;
+  border-left: 4px solid var(--gov-saffron);
+  border-radius: var(--gov-radius);
+  background: var(--gov-orange-light, #fff4e5);
+  color: var(--gov-text-body);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.session-step-title {
+  margin: 0 0 20px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.session-env-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 16px;
+  align-items: start;
+}
+
+.session-env-field {
+  min-width: 0;
+}
+
+.session-env-field .gov-label {
+  display: block;
+  min-height: 0;
+  line-height: 1.4;
+}
+
+.session-env-field .gov-input,
+.session-env-field .gov-select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.session-env-range-control {
+  display: grid;
+  min-width: 0;
+  gap: 9px;
+}
+
+.session-env-number-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.session-env-number-wrap .gov-input {
+  padding-right: 48px;
+  font-variant-numeric: tabular-nums;
+}
+
+.session-env-unit {
+  position: absolute;
+  top: 50%;
+  right: 11px;
+  color: var(--gov-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.session-env-slider {
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--gov-navy-imperial);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.session-env-slider:focus-visible {
+  outline: 3px solid rgba(217, 119, 6, 0.45);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+.session-env-range-limits {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -7px;
+  color: var(--gov-text-muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.session-env-notes {
+  grid-column: 1 / -1;
+}
+
+.session-env-field .session-env-textarea {
+  min-height: 82px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.session-wizard-navigation {
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 760px) {
+  .session-env-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 14px;
+  }
+
+  .session-env-notes {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .session-demo-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .session-env-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .session-env-notes {
+    grid-column: auto;
+  }
+
+  .session-env-field .gov-label {
+    min-height: 0;
+    margin-bottom: 6px;
+  }
+
+  .session-env-range-control {
+    gap: 7px;
+  }
+
+  .session-env-slider {
+    height: 22px;
+  }
+
+  .session-wizard-navigation {
+    justify-content: space-between;
+  }
+}

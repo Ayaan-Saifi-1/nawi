@@ -1,0 +1,55 @@
+.tricolor-stripe {
+  display: flex;
+  height: 3px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9100;
+}
+.tricolor-saffron { flex: 1; background: #FF9933; }
+.tricolor-white   { flex: 1; background: #FFFFFF; }
+.tricolor-green   { flex: 1; background: #138808; }
+
+.topbar {
+  position: fixed;
+  top: 3px;
+  left: 0;
+  right: 0;
+  height: calc(var(--topbar-height) - 3px);
+  background: var(--gov-navy-dark);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-inner {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-dept {
+  font-size: 11px;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 600px) {
+  .topbar-inner {
+    padding: 0 10px;
+  }
+  .topbar-dept {
+    display: none;
+  }
+}

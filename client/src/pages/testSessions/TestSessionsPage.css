@@ -1,0 +1,62 @@
+@media (max-width: 560px) {
+  .test-sessions-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .test-sessions-table thead {
+    display: none;
+  }
+
+  .test-sessions-table tbody {
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .test-sessions-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 10px;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid var(--gov-border, #29364b);
+    border-radius: 10px;
+    background: var(--gov-surface, #172337);
+  }
+
+  .test-sessions-table tbody td {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .test-sessions-table tbody td::before {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--gov-text-muted, #95a7c2);
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .test-sessions-table tbody td[data-label]::before {
+    content: attr(data-label);
+  }
+
+  .test-sessions-table tbody tr:has(> td[colspan]) {
+    display: block;
+  }
+
+  .test-sessions-table tbody tr:has(> td[colspan]) td::before {
+    display: none;
+  }
+}

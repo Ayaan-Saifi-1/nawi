@@ -1,0 +1,91 @@
+/* ===================================================================
+   NAWI Digital Metrology System — GIGW Government Theme
+   Department of Consumer Affairs, Ministry of Consumer Affairs,
+   Food & Public Distribution, Government of India
+   =================================================================== */
+
+:root {
+  /* ── Government Primary Brand & Command Palette ── */
+  --gov-navy-dark: #0B1220;
+  --gov-navy-imperial: #0F172A;
+  --gov-blue-primary: #3B82F6;
+  --gov-blue-accent: #3B82F6;
+  --gov-blue-light: #1C2940;
+  --gov-blue-subtle: #26334D;
+  --gov-primary: #3B82F6;
+  --gov-primary-hover: #2563EB;
+
+  /* ── Command Sidebar (High-density dark terminal) ── */
+  --gov-sidebar-bg: #0F172A;
+  --gov-sidebar-surface: #162033;
+  --gov-sidebar-border: #26334D;
+  --gov-sidebar-text: #8FA0BC;
+  --gov-sidebar-text-active: #E6ECF5;
+  --gov-sidebar-active-bg: #3B82F6;
+  --gov-sidebar-active-border: #3B82F6;
+
+  /* ── National & Metrology Accents ── */
+  --gov-saffron: #F59E0B;
+  --gov-saffron-light: #332711;
+  --gov-green: #22C55E;
+  --gov-green-light: #123521;
+  --gov-red: #EF4444;
+  --gov-red-light: #3A1820;
+  --gov-gold: #F59E0B;
+
+  /* ── Soft form language ── */
+  --gov-form-label: #E6ECF5;
+  --gov-form-border: #26334D;
+  --gov-form-border-strong: #3A4B6A;
+  --gov-form-focus: #22D3EE;
+  --gov-form-focus-soft: rgba(34, 211, 238, 0.18);
+
+  /* ── Neutral Surface & Typography ── */
+  --gov-bg-page: #0B1220;
+  --gov-bg-surface: #162033;
+  --gov-border: #26334D;
+  --gov-border-subtle: #1C2940;
+  --gov-text-heading: #E6ECF5;
+  --gov-text-body: #E6ECF5;
+  --gov-text-muted: #8FA0BC;
+
+  /* ── Elevation & Shadows ── */
+  --gov-focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.35);
+  --gov-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --gov-shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.24);
+  --gov-shadow-md: 0 8px 18px rgba(0, 0, 0, 0.3);
+  --gov-shadow-lg: 0 14px 30px rgba(0, 0, 0, 0.34);
+  --gov-radius-sm: 4px;
+  --gov-radius: 8px;
+  --gov-radius-lg: 12px;
+  --gov-radius-xl: 16px;
+
+  /* ── Layout ── */
+  --sidebar-width: 250px;
+  --header-height: 56px;
+  --topbar-height: 0px;
+}
+
+[data-theme="high-contrast"] {
+  --gov-bg-page: #000;
+  --gov-bg-surface: #111;
+  --gov-text-heading: #FFF;
+  --gov-text-body: #E2E8F0;
+  --gov-text-muted: #94A3B8;
+  --gov-border: #FFF;
+  --gov-border-subtle: #555;
+  --gov-navy-dark: #000;
+  --gov-navy-imperial: #000;
+  --gov-saffron: #FACC15;
+  --gov-green: #4ADE80;
+  --gov-red: #F87171;
+  --gov-form-label: #FFF;
+  --gov-form-border: #FFF;
+  --gov-form-border-strong: #FFF;
+  --gov-form-focus: #FACC15;
+  --gov-form-focus-soft: rgba(250, 204, 21, 0.28);
+}
+
+[data-font-size="-1"] { font-size: 14px; }
+[data-font-size="0"]  { font-size: 15px; }
+[data-font-size="1"]  { font-size: 17px; }

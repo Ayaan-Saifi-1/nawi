@@ -1,0 +1,140 @@
+.verify-search-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.verify-search-help {
+  margin: -3px 0 8px;
+  color: var(--gov-text-muted);
+  font-size: 13px;
+}
+
+.verify-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.verify-search-row .gov-input {
+  min-width: 0;
+}
+
+.verify-year-filter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: min(100%, 220px);
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.verify-year-filter .gov-label {
+  margin: 0;
+}
+
+.verify-message-error .gov-card-body {
+  color: var(--gov-red);
+}
+
+.verify-results-header {
+  flex-direction: row;
+  align-items: center;
+}
+
+.verify-results-header h3 {
+  margin: 0;
+}
+
+.verify-results-header p {
+  margin: 4px 0 0;
+  color: var(--gov-text-muted);
+  font-size: 13px;
+}
+
+.verify-result-count {
+  display: inline-flex;
+  min-width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--gov-blue-light);
+  color: var(--gov-navy-imperial);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.verify-results-list {
+  display: grid;
+  gap: 10px;
+}
+
+.verify-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--gov-border-subtle);
+  border-radius: var(--gov-radius);
+  background: var(--gov-bg-surface);
+}
+
+.verify-result-main {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.verify-result-main strong,
+.verify-result-main span {
+  overflow-wrap: anywhere;
+}
+
+.verify-result-main > span {
+  color: var(--gov-text-body);
+  font-size: 13px;
+}
+
+.verify-result-main small {
+  color: var(--gov-text-muted);
+  font-size: 12px;
+}
+
+.verify-result-action {
+  flex: 0 0 auto;
+}
+
+.verify-results-note {
+  margin: 2px 0 0;
+  color: var(--gov-text-muted);
+  font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .verify-search-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .verify-search-row .gov-btn {
+    justify-content: center;
+  }
+
+  .verify-results-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .verify-result-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .verify-result-action {
+    align-self: flex-start;
+  }
+}

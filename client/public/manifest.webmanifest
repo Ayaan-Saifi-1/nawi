@@ -1,0 +1,17 @@
+{
+  "short_name": "NAWI Metrology",
+  "name": "NAWI Digital Metrology System",
+  "icons": [
+    {
+      "src": "/emblem-india.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "display": "standalone",
+  "orientation": "any",
+  "description": "Digital Metrology Test Report Generation System for NAWI"
+}

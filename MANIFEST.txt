@@ -1,0 +1,13 @@
+NAWI latest package
+file_count=184
+merged_commit=619ef90704934bf825eea0b94e6646f2201650e0
+zip=nawi-latest-20260929-1556.zip
+sha256=24BD7606F271B6BF52DAB7E00E9FC10C825981610C24A09BD9699FDEAADB9D2A
+server_npm_ci=FAILED_OR_STOPPED: stalled after deprecation warnings
+server_tests=Test Suites: 2 failed, 11 passed, 13 total; Tests: 11 failed, 49 passed, 60 total
+client_build=NOT RUN after server gate failure
+client_tests=NOT RUN after server gate failure
+import_check=NOT RUN after server gate failure
+boot_check=NOT RUN after server gate failure
+npm_audit=NOT RUN after server gate failure
+e2e=NOT RUN after server gate failure

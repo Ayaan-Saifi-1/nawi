@@ -1,0 +1,510 @@
+.observation-form-card {
+  border: 1px solid #26334D;
+  border-top: 3px solid #3B82F6;
+  box-shadow: none;
+}
+
+.observation-form-card > .gov-card-header {
+  background: #1C2940;
+  border-bottom-color: #26334D;
+}
+
+.observation-form-header h4 {
+  color: #E6ECF5;
+}
+
+.observation-form-header .gov-btn-outline {
+  background: #1C2940;
+  border-color: #53627B;
+  color: #E6ECF5;
+}
+
+.observation-form-header .gov-btn-outline:hover {
+  background: #26334D;
+  border-color: #3B82F6;
+  color: #FFFFFF;
+}
+
+.observation-form-header {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.observation-form-header h4 {
+  min-width: 0;
+}
+
+.observation-demo-notice {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border: 1px solid #B45309;
+  border-left: 4px solid #F59E0B;
+  border-radius: var(--gov-radius);
+  background: #854D0E;
+  color: #FFFFFF;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.observation-form-card > .gov-card-body {
+  padding: clamp(14px, 2.4vw, 24px);
+}
+
+.observation-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 6px 20px;
+}
+
+.observation-form-grid > .gov-form-group {
+  min-width: 0;
+}
+
+.observation-form-grid > .gov-form-group > p {
+  min-height: 0;
+  margin: 0;
+  padding: 6px 0 10px;
+  color: #C5D0E3;
+  line-height: 1.5;
+}
+
+.observation-form-grid .gov-label {
+  color: #E6ECF5;
+  line-height: 1.45;
+}
+
+.observation-form-grid .gov-input,
+.observation-form-grid .gov-select {
+  width: 100%;
+  min-width: 0;
+}
+
+.observation-simulator-row {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.observation-simulator-row > .gov-btn {
+  min-height: 40px;
+  padding-inline: 14px;
+  border-color: #53627B;
+  background: #1C2940;
+  color: #E6ECF5;
+  font-weight: 600;
+}
+
+.observation-simulator-row > .gov-btn:hover,
+.observation-simulator-row > .gov-btn[aria-expanded="true"] {
+  border-color: #3B82F6;
+  background: #26334D;
+  color: #FFFFFF;
+}
+
+.observation-simulator-row .virtual-balance {
+  width: 100%;
+}
+
+.observation-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--gov-border-subtle);
+}
+
+.procedure-groups {
+  display: grid;
+  gap: 14px;
+  scroll-margin-top: 24px;
+}
+
+.procedure-groups-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.procedure-groups-heading h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.procedure-groups-heading > span,
+.procedure-card-status > span {
+  color: var(--gov-text-muted);
+  font-size: 13px;
+}
+
+.procedure-card {
+  min-width: 0;
+  margin: 0;
+  scroll-margin-top: 24px;
+}
+
+.procedure-card-pending {
+  border-color: #e8c98f;
+}
+
+.procedure-card-header {
+  align-items: center;
+  gap: 16px;
+}
+
+.procedure-card-header h4 {
+  margin: 0;
+}
+
+.procedure-card-meta,
+.procedure-card-status,
+.procedure-checklist,
+.procedure-structured-result {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.procedure-card-meta {
+  margin-top: 6px;
+  color: var(--gov-text-muted);
+  font-size: 12px;
+}
+
+.procedure-card-status {
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.procedure-required-label {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #2563EB;
+  color: #FFFFFF;
+  border: 1px solid #2563EB;
+  font-weight: 700;
+}
+
+.procedure-table-wrap {
+  padding: 0;
+}
+
+.procedure-table {
+  min-width: 680px;
+  margin: 0;
+}
+
+.procedure-table > tbody > tr > td {
+  vertical-align: top;
+}
+
+.procedure-table .text-mono {
+  white-space: nowrap;
+}
+
+.procedure-readings-table {
+  width: auto;
+  min-width: min(100%, 520px);
+  margin: 0;
+}
+
+.procedure-readings-table th,
+.procedure-readings-table td {
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.procedure-structured-result {
+  margin-top: 10px;
+}
+
+.procedure-computed-results {
+  display: grid;
+  gap: 3px;
+  margin-top: 8px;
+  color: var(--gov-text-muted);
+  font-size: 12px;
+}
+
+.procedure-actions {
+  white-space: nowrap;
+}
+
+.procedure-actions .gov-btn {
+  min-width: 34px;
+  min-height: 32px;
+  margin: 0 4px 4px 0;
+  padding: 5px;
+}
+
+.procedure-delete-button {
+  border-color: var(--gov-red) !important;
+  color: var(--gov-red) !important;
+}
+
+.procedure-advisory-row > td {
+  background: #fffaf0;
+}
+
+.procedure-advisory {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  color: #7c4a03;
+  font-size: 13px;
+}
+
+.procedure-advisory .gov-btn {
+  flex-shrink: 0;
+  padding: 4px 8px;
+}
+
+.procedure-empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 16px;
+  color: var(--gov-text-muted);
+}
+
+.approval-separation-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 0 0 14px;
+  padding: 11px 13px;
+  border: 1px solid #f1d49a;
+  border-radius: var(--gov-radius);
+  background: #fff8e8;
+  color: #704b08;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.approval-separation-notice svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+@media (max-width: 760px) {
+  .observation-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .observation-form-card > .gov-card-body {
+    padding: 16px;
+  }
+
+  .observation-form-grid > .gov-form-group > p {
+    min-height: 0;
+    padding: 4px 0 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .procedure-groups-heading,
+  .procedure-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .procedure-card-status {
+    justify-content: flex-start;
+  }
+
+  .procedure-empty {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .procedure-empty .gov-btn {
+    justify-content: center;
+  }
+
+  .procedure-advisory {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .observation-form-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .observation-form-header > .gov-btn {
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .observation-form-card > .gov-card-body {
+    padding: 14px 12px;
+  }
+
+  .observation-simulator-row > .gov-btn {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .observation-form-actions > .gov-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+.review-reject-button {
+  border-color: #EF4444;
+  color: #EF4444;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.review-reject-button:hover:not(:disabled),
+.review-reject-button:focus-visible:not(:disabled) {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #FFFFFF;
+}
+.overall-result-card {
+  border-left: 1px solid var(--gov-border) !important;
+}
+
+.overall-result-content {
+  display: flex;
+  min-height: 132px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.overall-result-content > strong {
+  color: #A78BFA;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: .01em;
+}
+
+.workflow-banner,
+.workflow-complete-banner {
+  border: 1px solid #35445D;
+  box-shadow: var(--gov-shadow-sm);
+}
+
+.workflow-banner {
+  border-left: 5px solid #F59E0B;
+  background: #1B2639;
+}
+
+.workflow-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.workflow-banner-main,
+.workflow-complete-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.workflow-banner-title,
+.workflow-complete-title {
+  display: block;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.workflow-banner-title { color: #F8FAFC; }
+.workflow-banner-description,
+.workflow-complete-description {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.workflow-banner-description { color: #D8E1EF; }
+.workflow-next-procedure {
+  margin-top: 6px;
+  color: #FDE68A;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.workflow-banner-actions,
+.workflow-step-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.workflow-next-button {
+  background: #111B2D !important;
+  border-color: #3B82F6 !important;
+  color: #FFFFFF !important;
+}
+.workflow-next-button:hover:not(:disabled) {
+  background: #2563EB !important;
+  border-color: #2563EB !important;
+}
+
+.workflow-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.workflow-step-pill.is-complete {
+  background: #14532D;
+  border-color: #22C55E;
+  color: #DCFCE7;
+}
+.workflow-step-pill.is-next {
+  background: #F59E0B;
+  border-color: #FBBF24;
+  color: #111827;
+}
+.workflow-step-pill.is-pending {
+  background: #26334D;
+  border-color: #3A4B6A;
+  color: #D8E1EF;
+}
+.workflow-step-status {
+  color: inherit;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.workflow-complete-banner {
+  border-left: 5px solid #22C55E;
+  background: #142A20;
+}
+.workflow-complete-title { color: #86EFAC; }
+.workflow-complete-description { color: #D1FAE5; }
+
+@media (max-width: 640px) {
+  .workflow-banner-actions,
+  .workflow-step-list {
+    align-items: stretch;
+  }
+  .workflow-banner-actions > button {
+    max-width: 100%;
+    white-space: normal;
+  }
+}

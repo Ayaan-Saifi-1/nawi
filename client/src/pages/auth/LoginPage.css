@@ -1,0 +1,391 @@
+/* ===================================================================
+   NAWI Digital Metrology System — Login Page (Team Ascension)
+   =================================================================== */
+
+body:has(.login-page) {
+  background: var(--gov-navy-dark, #17191C);
+  overflow-x: hidden;
+}
+
+.login-page {
+  box-sizing: border-box;
+  height: calc(100vh - var(--topbar-height) - var(--header-height));
+  height: calc(100dvh - var(--topbar-height) - var(--header-height));
+  min-height: calc(100vh - var(--topbar-height) - var(--header-height));
+  min-height: calc(100dvh - var(--topbar-height) - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 3vw, 56px);
+  margin-top: calc(var(--topbar-height) + var(--header-height));
+  background: linear-gradient(135deg, var(--gov-navy-dark) 0%, var(--gov-navy-imperial) 50%, var(--gov-blue-accent) 100%);
+  padding: 0 clamp(20px, 3vw, 48px) 0 clamp(24px, 3vw, 56px);
+  overflow: hidden;
+}
+
+.login-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 58%;
+  min-width: 0;
+  height: 100%;
+}
+
+.balance-model {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.balance-model canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.login-visual-glow {
+  position: absolute;
+  width: 65%;
+  height: 48%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  filter: blur(48px);
+}
+
+.login-card {
+  box-sizing: border-box;
+  flex: 0 0 42%;
+  width: 42%;
+  max-width: 500px;
+  min-width: min(360px, 92%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto clamp(12px, 2vw, 36px) auto auto;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  padding: clamp(24px, 3vw, 38px) clamp(22px, 2.5vw, 34px);
+  backdrop-filter: blur(16px);
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-emblem {
+  width: 96px;
+  height: 80px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+  display: block;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  transition: transform 0.25s ease;
+}
+
+.login-emblem:hover {
+  transform: scale(1.04);
+}
+
+.login-brand h1 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--gov-navy-imperial);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.login-dept {
+  font-size: 13px;
+  color: var(--gov-text-muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.login-form {
+  margin-bottom: 20px;
+}
+
+.login-error {
+  margin: 0 0 16px;
+  padding: 11px 13px;
+  border: 1px solid #b91c1c;
+  border-radius: 10px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.login-form .gov-input {
+  min-height: 58px;
+  border-radius: 22px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--gov-form-border);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-form .gov-input:focus {
+  border-color: var(--gov-form-focus);
+  box-shadow: 0 0 0 4px var(--gov-form-focus-soft);
+}
+
+.login-pw-wrap {
+  position: relative;
+}
+
+.login-pw-wrap .gov-input {
+  width: 100%;
+  padding-right: 42px;
+}
+
+.login-pw-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--gov-text-muted);
+  cursor: pointer;
+}
+
+.login-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 15px;
+  margin-top: 8px;
+  min-height: 54px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+.login-demo-creds {
+  border-top: 1px solid var(--gov-border-subtle);
+  padding-top: 14px;
+  text-align: center;
+  font-size: 12.5px;
+}
+
+.login-demo-creds p {
+  margin-bottom: 8px;
+}
+
+.login-demo-creds code {
+  background: var(--gov-blue-light);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.login-role-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.login-role-grid .gov-btn {
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.login-role-grid .gov-btn:hover {
+  background: var(--gov-blue-light);
+  border-color: var(--gov-navy-imperial);
+  transform: translateY(-1px);
+}
+
+.login-demo-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 14px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: left;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .login-page {
+    gap: 20px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .login-card {
+    flex-basis: 45%;
+    width: 45%;
+    min-width: 340px;
+    padding: 26px 22px;
+  }
+}
+
+@media (max-width: 900px), (max-height: 720px) {
+  .login-page {
+    height: auto;
+    min-height: calc(100vh - var(--topbar-height) - var(--header-height));
+    min-height: calc(100dvh - var(--topbar-height) - var(--header-height));
+    overflow-y: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 16px 36px;
+  }
+
+  .login-visual {
+    flex: none;
+    width: min(100%, 540px);
+    height: clamp(200px, 32vh, 280px);
+  }
+
+  .login-card {
+    flex: none;
+    width: min(100%, 540px);
+    min-width: 0;
+    margin: 0 auto;
+    display: block;
+    border-radius: 24px;
+    padding: 26px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    gap: 12px;
+    padding: 16px 12px 28px;
+  }
+
+  .login-visual {
+    height: 180px;
+  }
+
+  .login-card {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+
+  .login-brand h1 {
+    font-size: 18px;
+  }
+
+  .login-dept {
+    overflow-wrap: anywhere;
+  }
+}
+.login-card {
+  background: #162033 !important;
+  border: 1px solid #26334D !important;
+  color: #E6ECF5 !important;
+}
+
+.login-card h1,
+.login-card h2,
+.login-card .title {
+  color: #E6ECF5 !important;
+}
+
+.login-card .subtitle,
+.login-card .description {
+  color: #8FA0BC !important;
+}
+
+.login-card label,
+.login-card .field-label {
+  color: #E6ECF5 !important;
+}
+
+.login-card input,
+.login-card select {
+  background: #1C2940 !important;
+  border-color: #3A4A68 !important;
+  color: #E6ECF5 !important;
+}
+
+.login-card input::placeholder {
+  color: #8FA0BC !important;
+}
+
+.login-card .role-chip,
+.login-card [class*="role-chip"] {
+  background: transparent !important;
+  border: 1px solid #3A4A68 !important;
+  color: #C5D0E3 !important;
+}
+
+.login-card .role-chip:hover,
+.login-card .role-chip.active,
+.login-card [class*="role-chip"].active {
+  background: #3B82F6 !important;
+  border-color: #3B82F6 !important;
+  color: #FFFFFF !important;
+}
+
+.login-logo {
+  background: #1C2940 !important;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.login-hero img {
+  filter: hue-rotate(190deg) saturate(.8) brightness(.95);
+}
+.login-logo {
+  width: 88px !important;
+  height: 88px !important;
+  flex: 0 0 88px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background-color: #1C2940 !important;
+  background-image: url('/ascension-logo.svg') !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  overflow: hidden;
+}
+
+.login-logo img {
+  content: url('/ascension-logo.svg');
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+}
+.login-card img,
+.login-logo img,
+img.login-logo {
+  content: url('/ascension-logo.svg') !important;
+  width: 128px !important;
+  height: 128px !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  mix-blend-mode: normal !important;
+}
+
+.login-logo {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}

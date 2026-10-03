@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Ascension</title>
+  <g fill="none" stroke="#F8FAFC" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M87 350 242 95l151 255M133 350l109-180 108 180M215 298l165-5"/>
+    <circle cx="242" cy="96" r="17"/><circle cx="269" cy="134" r="17"/>
+    <circle cx="87" cy="350" r="17"/><circle cx="133" cy="350" r="17"/>
+    <circle cx="351" cy="350" r="17"/><circle cx="392" cy="350" r="17"/>
+    <circle cx="215" cy="298" r="17"/>
+  </g>
+  <text x="240" y="260" text-anchor="middle" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="39" letter-spacing="4">Ascension</text>
+</svg>

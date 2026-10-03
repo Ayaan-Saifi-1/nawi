@@ -1,0 +1,577 @@
+.virtual-balance {
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid var(--gov-border);
+  border-radius: 10px;
+  background: #162033;
+}
+
+.virtual-balance-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gov-border-subtle);
+  background: var(--gov-blue-light);
+}
+
+.virtual-balance-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 11px;
+}
+
+.virtual-balance-icon {
+  display: inline-flex;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #26334D;
+  color: #E6ECF5;
+}
+
+.virtual-balance-heading h5 {
+  margin: 0;
+  color: var(--gov-text-heading);
+  font-size: 14px;
+}
+
+.virtual-balance-heading p {
+  margin: 3px 0 0;
+  color: var(--gov-text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.virtual-balance-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border: 1px solid var(--gov-border);
+  border-radius: 6px;
+  background: #26334D;
+  color: #B8C7DC;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.virtual-balance-content {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+}
+
+.virtual-balance-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 11px 12px;
+  border: 1px solid var(--gov-border-subtle);
+  border-radius: 8px;
+  background: #1C2940;
+  color: #E6ECF5;
+}
+
+.virtual-balance-notice svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.virtual-balance-notice p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.virtual-balance-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.virtual-balance-fields .gov-form-group {
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.virtual-balance-fields .gov-label span {
+  color: var(--gov-text-muted);
+  font-weight: 400;
+}
+
+.virtual-balance-fields small {
+  display: block;
+  margin-top: 5px;
+  color: var(--gov-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.virtual-balance-blocks {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.virtual-balance-blocks-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.virtual-balance-blocks-heading h6 {
+  margin: 0;
+  color: var(--gov-text-heading);
+  font-size: 13px;
+}
+
+.virtual-balance-blocks-heading p {
+  margin: 3px 0 0;
+  color: var(--gov-text-muted);
+  font-size: 11px;
+}
+
+.virtual-balance-reset {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 1px solid var(--gov-border);
+  border-radius: 6px;
+  background: #1C2940;
+  color: #E6ECF5;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.virtual-balance-reset:disabled {
+  border-color: #26334D;
+  background: #162033;
+  color: #8FA0BC;
+  cursor: not-allowed;
+}
+
+.virtual-balance-weight-list {
+  display: flex;
+  gap: 8px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  scrollbar-width: thin;
+}
+
+.virtual-weight-option {
+  position: relative;
+  display: grid;
+  flex: 0 0 84px;
+  gap: 4px;
+  justify-items: center;
+}
+
+.virtual-weight-button {
+  display: flex;
+  width: 84px;
+  min-height: 74px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid var(--gov-border);
+  border-radius: 8px;
+  background: #1C2940;
+  color: #E6ECF5;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.virtual-weight-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--gov-blue-accent);
+  box-shadow: none;
+}
+
+.virtual-weight-button:disabled {
+  border-color: #26334D;
+  background: #111827;
+  color: #8FA0BC;
+  cursor: not-allowed;
+}
+
+.virtual-weight-option.is-selected .virtual-weight-button {
+  border-color: #3B82F6;
+  background: #1E3A8A;
+  color: #FFFFFF;
+}
+
+.virtual-weight-block {
+  width: 29px;
+  height: 20px;
+  border: 1px solid #475569;
+  border-radius: 5px 5px 3px 3px;
+  background: linear-gradient(145deg, #dbe4ed 0%, #8999aa 48%, #64748b 100%);
+  box-shadow: inset 0 2px #D6E0EA, 0 2px 2px #111827;
+}
+
+.virtual-weight-button strong {
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.virtual-weight-button small {
+  color: #B8C7DC;
+  font-size: 9px;
+  line-height: 1;
+}
+
+.virtual-weight-quantity {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 4px;
+  border: 1px solid #40506A;
+  border-radius: 999px;
+  background: #162033;
+  color: #E6ECF5;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.virtual-weight-quantity button {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: #3B82F6;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.virtual-weight-quantity button:disabled {
+  background: #334155;
+  color: #8FA0BC;
+  cursor: not-allowed;
+}
+
+.virtual-balance-no-weights {
+  margin: 0;
+  color: #FCA5A5;
+  font-size: 12px;
+}
+
+.virtual-balance-device-wrap {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.7fr) minmax(220px, 1fr) minmax(150px, 0.75fr);
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #26334D;
+  border-radius: 9px;
+  background: #0B1220;
+}
+
+.virtual-balance-pan {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  flex-direction: column;
+  gap: 0;
+}
+
+.virtual-balance-pan-platform {
+  display: block;
+  width: 56%;
+  height: 7px;
+  border: 1px solid #64748b;
+  background: linear-gradient(90deg, #cbd5e1, #64748b 50%, #cbd5e1);
+}
+
+.virtual-balance-pan-platform:first-child {
+  width: 2px;
+  height: 14px;
+  border: 0;
+  background: #64748b;
+}
+
+.virtual-balance-pan-surface {
+  display: flex;
+  width: 100%;
+  min-height: 76px;
+  max-height: 124px;
+  align-content: end;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  overflow: auto;
+  padding: 8px;
+  border: 2px solid #94a3b8;
+  border-radius: 7px 7px 12px 12px;
+  background: linear-gradient(180deg, #e2e8f0, #cbd5e1);
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.12);
+}
+
+.virtual-pan-weight {
+  display: inline-flex;
+  width: 36px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid #475569;
+  border-radius: 4px 4px 2px 2px;
+  background: linear-gradient(145deg, #e2e8f0, #8999aa 60%, #64748b);
+  color: #1e293b;
+  box-shadow: inset 0 2px rgba(255, 255, 255, 0.6), 0 2px 2px rgba(15, 23, 42, 0.15);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.virtual-pan-weight small {
+  font-size: 6px;
+}
+
+.virtual-pan-empty {
+  align-self: center;
+  color: #64748b;
+  font-size: 10px;
+}
+
+.virtual-balance-device {
+  overflow: hidden;
+  border: 1px solid #374151;
+  border-radius: 9px;
+  padding: 10px;
+  background: linear-gradient(145deg, #303b4a, #111827);
+  box-shadow: 0 5px 12px rgba(15, 23, 42, 0.2), inset 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.virtual-balance-device-top,
+.virtual-balance-device-bottom {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  color: #d1d5db;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.virtual-balance-device-top > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.device-status {
+  border-radius: 999px;
+  padding: 3px 6px;
+  letter-spacing: 0.04em;
+}
+
+.device-status.stable {
+  background: #1E8F4E;
+  color: #FFFFFF;
+}
+
+.device-status.unstable {
+  background: #B45309;
+  color: #FFFFFF;
+}
+
+.virtual-balance-display {
+  position: relative;
+  display: flex;
+  min-height: 86px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  border: 2px solid #6b7280;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #d7e4bd, #b8c99d);
+  color: #1f2937;
+  box-shadow: inset 0 2px 5px rgba(15, 23, 42, 0.24);
+}
+
+.virtual-balance-display > span {
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.virtual-balance-display strong {
+  overflow: hidden;
+  max-width: calc(100% - 55px);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-overflow: ellipsis;
+}
+
+.virtual-balance-display small {
+  align-self: flex-end;
+  margin: 0 0 14px 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.virtual-balance-device-bottom {
+  justify-content: flex-start;
+  font-size: 8px;
+}
+
+.device-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #86efac;
+  box-shadow: 0 0 7px #4ade80;
+}
+
+.virtual-balance-reading-caption {
+  margin: 0;
+  color: var(--gov-text-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.virtual-balance-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.virtual-balance-actions > span {
+  color: var(--gov-text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.virtual-balance-actions .gov-btn {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 760px) {
+  .virtual-balance-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .virtual-balance-device-wrap {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .virtual-balance-reading-caption {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .virtual-balance-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .virtual-balance-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .virtual-balance-device-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 10px;
+  }
+
+  .virtual-balance-content {
+    gap: 13px;
+    padding: 12px;
+  }
+
+  .virtual-balance-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .virtual-balance-actions .gov-btn {
+    justify-content: center;
+  }
+}
+.virtual-balance-panel [class*="header"],
+.virtual-balance [class*="header"],
+.virtual-balance-simulator [class*="header"],
+.virtual-balance-panel header,
+.virtual-balance header,
+.virtual-balance-simulator header {
+  background: #1C2940 !important;
+  border-color: #26334D !important;
+  color: #E6ECF5 !important;
+}
+
+.virtual-balance-panel [class*="header"] :is(h1, h2, h3, p, span, strong),
+.virtual-balance [class*="header"] :is(h1, h2, h3, p, span, strong),
+.virtual-balance-simulator [class*="header"] :is(h1, h2, h3, p, span, strong),
+.virtual-balance-panel [class*="header"] *,
+.virtual-balance [class*="header"] *,
+.virtual-balance-simulator [class*="header"] *,
+[class*="virtual-balance"] [class*="header"] *,
+[class*="hardware-mimic"] [class*="header"] *,
+.virtual-balance-panel header :is(h1, h2, h3, p, span, strong),
+.virtual-balance header :is(h1, h2, h3, p, span, strong),
+.virtual-balance-simulator header :is(h1, h2, h3, p, span, strong),
+[class*="virtual-balance"] header *,
+[class*="hardware-mimic"] header * {
+  color: #E6ECF5 !important;
+}
+
+.virtual-balance-panel [class*="header"] button,
+.virtual-balance [class*="header"] button,
+.virtual-balance-simulator [class*="header"] button,
+.virtual-balance-panel header button,
+.virtual-balance header button,
+.virtual-balance-simulator header button {
+  background: #1C2940 !important;
+  border: 1px solid #53627B !important;
+  color: #C5D0E3 !important;
+}
+
+.virtual-balance-panel [class*="header"] button:disabled,
+.virtual-balance [class*="header"] button:disabled,
+.virtual-balance-simulator [class*="header"] button:disabled,
+.virtual-balance-panel header button:disabled,
+.virtual-balance header button:disabled,
+.virtual-balance-simulator header button:disabled {
+  background: #26334D !important;
+  border-color: #3A4A68 !important;
+  color: #AAB8CC !important;
+  opacity: 1 !important;
+}
+
+.virtual-balance-panel [class*="header"] [class*="active"],
+.virtual-balance [class*="header"] [class*="active"],
+.virtual-balance-simulator [class*="header"] [class*="active"] {
+  background: #1E8F4E !important;
+  border-color: #1E8F4E !important;
+  color: #FFFFFF !important;
+}

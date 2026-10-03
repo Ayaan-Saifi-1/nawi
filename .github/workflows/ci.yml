@@ -1,0 +1,102 @@
+name: CI Build & Test Workflow
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-tests:
+    name: Run Backend Server Tests
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+      - name: Install Server Dependencies
+        run: cd server && npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 1
+      - name: Run Backend Tests
+        run: cd server && npm test
+        env:
+          NODE_ENV: test
+          MONGO_URI: mongodb://127.0.0.1:27017/nawi_test
+          JWT_SECRET: test_jwt_secret_key_32_chars_long_minimum!
+          REPORT_INTEGRITY_SECRET: test_report_integrity_secret_32_chars!
+
+  frontend-build:
+    name: Build Frontend Client
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+      - name: Install Client Dependencies
+        run: cd client && npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 1
+      - name: Build Vite Client
+        run: cd client && npm run build
+      - name: Run Client Tests
+        run: cd client && npm test
+
+  e2e-smoke:
+    name: Optional Browser Smoke Test
+    if: ${{ vars.NAWI_E2E == 'true' }}
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+          cache-dependency-path: |
+            server/package-lock.json
+            client/package-lock.json
+      - name: Install server dependencies
+        run: cd server && npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 1
+      - name: Seed server
+        run: cd server && npm run seed
+        env:
+          NODE_ENV: development
+          MONGO_URI: mongodb://127.0.0.1:27017/nawi_e2e
+          JWT_SECRET: test_jwt_secret_key_32_chars_long_minimum!
+          REPORT_INTEGRITY_SECRET: test_report_integrity_secret_32_chars!
+      - name: Start server
+        run: cd server && npm start &
+        env:
+          NODE_ENV: development
+          PORT: 5000
+          MONGO_URI: mongodb://127.0.0.1:27017/nawi_e2e
+          JWT_SECRET: test_jwt_secret_key_32_chars_long_minimum!
+          REPORT_INTEGRITY_SECRET: test_report_integrity_secret_32_chars!
+      - name: Install client dependencies
+        run: cd client && npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 1
+      - name: Install Playwright browser
+        run: cd client && npx playwright install --with-deps chromium
+      - name: Run browser smoke test
+        run: cd client && npm run test:e2e

@@ -1,0 +1,836 @@
+GOVERNMENT OF INDIA
+MINISTRY OF CONSUMER AFFAIRS, FOOD & PUBLIC DISTRIBUTION
+DEPARTMENT OF CONSUMER AFFAIRS — LEGAL METROLOGY DIVISION
+DIGITAL METROLOGY TEST REPORT GENERATION SYSTEM
+FOR NON-AUTOMATIC WEIGHING INSTRUMENTS (NAWI)
+COMPLIANT WITH OIML RECOMMENDATION R-76
+A Complete System Architecture, Design and Implementation Blueprint
+Problem Statement ID: 26035
+Category: Software   |   Theme: Miscellaneous
+Abstract
+Non-Automatic Weighing Instruments (NAWIs) underpin fair trade, healthcare dosing, industrial control, and consumer protection across India. Before any such instrument model can be sold or verified in the field, it must clear a type/pattern evaluation against OIML Recommendation R-76, a process that today is executed largely through spreadsheets and static document templates. This manual approach is slow, inconsistent across laboratories, and vulnerable to transcription and calculation error at exactly the point where correctness matters most: the legal record of an instrument's accuracy. This document presents a complete architectural and implementation blueprint for a Digital Metrology Test Report Generation System that digitises the entire type-evaluation workflow — structured capture of instrument and environmental data, a versioned rule engine that encodes OIML R-76 permissible-error logic, automatic pass/fail determination, standardised report generation with digital signing, and a searchable, auditable repository. The design is deliberately organised around a configurable Rule Configuration Service rather than hard-coded formulae, so that future amendments to OIML R-76, or to the Legal Metrology (General) Rules, 2011, can be adopted without re-engineering the core system. Beyond the stated functional requirements of Problem Statement 26035, the blueprint proposes differentiators intended to set the system apart from conventional single-laboratory digitisation efforts: a federated multi-laboratory architecture, an offline-capable client for weighbridge and field verification sites, a tamper-evident audit trail anchored to cryptographic hashes, a public report-authenticity verification portal, and a phased roadmap toward assisted anomaly detection in test observations. The remainder of this document details the system's architecture, data model, workflows, technology stack, security posture, testing strategy, risks, and a phased implementation plan, so that any member of the receiving team can proceed directly to design and build without further independent research into the domain.
+Table of Contents
+TOC \h \o "1-3"
+Abstract
+ PAGEREF _Toc241395040 \h 
+1
+Table of Contents
+ PAGEREF _Toc241395041 \h 
+1
+1.  Introduction
+ PAGEREF _Toc241395042 \h 
+1
+1.1  Background and Motivation
+ PAGEREF _Toc241395043 \h 
+1
+1.2  Regulatory Context
+ PAGEREF _Toc241395044 \h 
+1
+1.3  Problem Statement Reference
+ PAGEREF _Toc241395045 \h 
+1
+1.4  Objectives
+ PAGEREF _Toc241395046 \h 
+1
+1.5  Scope and Boundaries
+ PAGEREF _Toc241395047 \h 
+1
+2.  Landscape Review
+ PAGEREF _Toc241395048 \h 
+1
+2.1  Limitations of the Current Manual Process
+ PAGEREF _Toc241395049 \h 
+1
+2.2  Comparable Digitisation Efforts
+ PAGEREF _Toc241395050 \h 
+1
+2.3  Gaps This System Is Designed to Close
+ PAGEREF _Toc241395051 \h 
+1
+3.  System Vision and Differentiation
+ PAGEREF _Toc241395052 \h 
+1
+4.  Stakeholders and User Roles
+ PAGEREF _Toc241395053 \h 
+1
+5.  Functional Requirements
+ PAGEREF _Toc241395054 \h 
+1
+6.  System Architecture
+ PAGEREF _Toc241395055 \h 
+1
+6.1  Architectural Style
+ PAGEREF _Toc241395056 \h 
+1
+6.2  High-Level Architecture
+ PAGEREF _Toc241395057 \h 
+1
+6.3  Component Description
+ PAGEREF _Toc241395058 \h 
+1
+6.4  Data Flow
+ PAGEREF _Toc241395059 \h 
+1
+6.5  Deployment Architecture
+ PAGEREF _Toc241395060 \h 
+1
+7.  Data Design
+ PAGEREF _Toc241395061 \h 
+1
+7.1  Entity-Relationship Model
+ PAGEREF _Toc241395062 \h 
+1
+7.2  Entity Notes
+ PAGEREF _Toc241395063 \h 
+1
+7.3  Handling Future OIML Revisions
+ PAGEREF _Toc241395064 \h 
+1
+8.  Core Workflows
+ PAGEREF _Toc241395065 \h 
+1
+8.1  Test Report Generation Sequence
+ PAGEREF _Toc241395066 \h 
+1
+8.2  Report Lifecycle
+ PAGEREF _Toc241395067 \h 
+1
+9.  OIML R-76 Test Coverage and Compliance Engine
+ PAGEREF _Toc241395068 \h 
+1
+9.1  Annex-Wise Test Mapping
+ PAGEREF _Toc241395069 \h 
+1
+9.2  Permissible Error Determination
+ PAGEREF _Toc241395070 \h 
+1
+9.3  Compliance Decision Logic
+ PAGEREF _Toc241395071 \h 
+1
+10.  Report Generation and Document Management
+ PAGEREF _Toc241395072 \h 
+1
+11.  Security, Data Integrity and Auditability
+ PAGEREF _Toc241395073 \h 
+1
+11.1  Access Control
+ PAGEREF _Toc241395074 \h 
+1
+11.2  Data Integrity
+ PAGEREF _Toc241395075 \h 
+1
+11.3  Transport and Storage Security
+ PAGEREF _Toc241395076 \h 
+1
+11.4  Privacy and Data Retention
+ PAGEREF _Toc241395077 \h 
+1
+12.  Innovation and Global Differentiation
+ PAGEREF _Toc241395078 \h 
+1
+12.1  Configuration-First Compliance
+ PAGEREF _Toc241395079 \h 
+1
+12.2  Federated, Multi-Laboratory Operation
+ PAGEREF _Toc241395080 \h 
+1
+12.3  Offline-Capable Field Client
+ PAGEREF _Toc241395081 \h 
+1
+12.4  Tamper-Evident, Publicly Verifiable Reports
+ PAGEREF _Toc241395082 \h 
+1
+12.5  Assisted Data-Quality Review (Roadmap)
+ PAGEREF _Toc241395083 \h 
+1
+13.  Technology Stack
+ PAGEREF _Toc241395084 \h 
+1
+14.  Non-Functional Requirements
+ PAGEREF _Toc241395085 \h 
+1
+15.  Implementation Roadmap
+ PAGEREF _Toc241395086 \h 
+1
+16.  Testing and Validation Strategy
+ PAGEREF _Toc241395087 \h 
+1
+17.  Challenges and Mitigation Strategies
+ PAGEREF _Toc241395088 \h 
+1
+18.  Risk Register
+ PAGEREF _Toc241395089 \h 
+1
+19.  Team Structure and Resource Plan
+ PAGEREF _Toc241395090 \h 
+1
+20.  Future Scope
+ PAGEREF _Toc241395091 \h 
+1
+21.  Conclusion
+ PAGEREF _Toc241395092 \h 
+1
+22.  References
+ PAGEREF _Toc241395093 \h 
+1
+Appendix A — Glossary
+ PAGEREF _Toc241395094 \h 
+1
+Appendix B — Requirement Traceability Matrix
+ PAGEREF _Toc241395095 \h 
+1
+Note: right-click the table above and select ‘Update Field’ in Microsoft Word to populate page numbers after any edits.
+1.  Introduction
+1.1  Background
+ and Motivation
+Weighing instruments used in trade, healthcare, industry and agriculture must produce measurements that both parties to a transaction, and the regulator, can trust. In India, this trust is established through the Legal Metrology Act, 2009 and the Legal Metrology (General) Rules, 2011, which require that a Non-Automatic Weighing Instrument (NAWI) — an electronic weighing scale, platform scale, or weighbridge that requires an operator to complete the weighing process — obtain model (pattern) approval before it is verified, stamped, and sold. Model approval is granted only after a designated laboratory has subjected a representative sample of the instrument to the type-evaluation tests specified in OIML Recommendation R-76, Non-Automatic Weighing Instruments — Part 1: Metrological and Technical Requirements, Tests.
+At present, laboratories record raw test readings on paper or in spreadsheets, then manually transcribe them into Word or Excel report templates, computing permissible errors and pass/fail status by hand or with unstructured formulae. This is slow, hard to audit, inconsistent between laboratories and personnel, and difficult to update when OIML revises R-76 or when the Bureau of Indian Standards / Legal Metrology Division issues clarifications. The absence of a common digital format also makes it difficult for the Department of Consumer Affairs (
+DoCA
+) to maintain a national view of approved models, pending applications, or laboratory workload.
+1.2  Regulatory
+ Context
+Legal Metrology Act, 2009 — establishes the legal framework for standards of weights and measures and the regulation of trade and commerce in weights, measures and other goods sold by weight, measure or number.
+Legal Metrology (General) Rules, 2011 — prescribes model approval, verification and stamping procedures with which NAWIs sold in India must comply.
+OIML R-76-1 — the international recommendation specifying metrological and technical requirements and the test procedures (administrative examination, construction check, initial examination, performance tests, influence-factor tests, and durability/endurance testing) used for pattern evaluation of NAWIs.
+OIML R-76-2 — the companion pattern-evaluation report format that R-76-1 test results are traditionally reported against, and which the proposed system's standardised templates are modelled on.
+Because OIML periodically revises R-76 (editions and amendments have been issued across 1976, 1992, 2006 and subsequently), and because the domestic rules may add interim provisions of their own, the system described in this document treats regulatory parameters as versioned configuration rather than as constants embedded in application code. Section 6 and Section 9 elaborate this design decision.
+1.3  Problem
+ Statement Reference
+Field
+Value
+Problem Statement ID
+26035
+Title
+Development of a Software Program / Application for Generation of Test Reports for Non-Automatic Weighing Instruments (NAWI) as per OIML Recommendation R-76
+Organisation
+Ministry of Consumer Affairs, Food & Public Distribution
+Department
+Department of Consumer Affairs (
+DoCA
+)
+Category / Theme
+Software / Miscellaneous
+This blueprint addresses every functional requirement enumerated in the problem statement — instrument and specification capture, laboratory and environmental condition recording, entry of OIML R-76 test observations, automatic error and compliance calculation, data validation, automatic pass/fail determination, standardised printable report generation, a digital repository, role-based secure access, and forward compatibility with future OIML revisions — and organises them into a coherent, buildable system rather than a checklist of features. A requirement traceability matrix is provided in Appendix B mapping each stated requirement to the section(s) of this document and the module(s) of the architecture that satisfy it.
+1.4  Objectives
+Eliminate manual, spreadsheet-based computation of permissible errors and compliance status for NAWI type evaluation.
+Provide a single, structured digital record per test session that is complete, validated, and traceable from raw observation to signed report.
+Encode OIML R-76 requirements as versioned, auditable configuration so that revisions do not require rewriting application logic.
+Produce standardised, tamper-evident test reports in both fixed (PDF) and editable (DOCX) form, matching the OIML R-76-2 reporting structure.
+Give the Department of Consumer Affairs a national, searchable view of model approvals, laboratory throughput and compliance trends.
+Support laboratories with intermittent connectivity (weighbridge sites, remote test centres) through an offline-capable client.
+Establish security, access control and audit properties appropriate to a legal record used in regulatory decision-making.
+1.5  Scope
+ and Boundaries
+In scope: 
+digital capture and validation of R-76 type-evaluation test data; automated calculation and compliance engine; standardised report generation, digital signing and repository; dashboards for laboratory and departmental users; role-based access control; a rule-configuration mechanism for OIML revisions.
+Out of scope (Phase 1): 
+automatic control of physical test equipment (load cells, environmental chambers) — the system accepts observations that a technician enters or that are pushed from calibrated instruments via a defined interface, but does not itself drive test rigs; verification and stamping of instruments in the field (post-approval, subsequent verification) is treated as a distinct, related workflow that the architecture accommodates but does not fully specify in this document; integration with the 
+national Legal Metrology e-portal is designed as an export/API capability, with the portal's own onboarding process kept outside this blueprint's control.
+2.  Landscape Review
+2.1  Limitations
+ of the Current Manual Process
+Calculation risk: permissible-error and pass/fail computation performed manually or in ad-hoc spreadsheets, with no independent check on formula correctness per instrument class.
+Inconsistency: report layout, terminology and level of detail vary by laboratory and by individual technician, complicating review by approving officers and by 
+DoCA
+.
+No structured history: instrument-wise test history is scattered across files and folders rather than 
+queryable
+ by model, manufacturer, or date.
+Weak auditability: it is difficult to reconstruct who entered which observation, when a value was changed, or why a report was revised.
+Slow update cycle: when OIML issues an amendment, every spreadsheet template in use must be located and manually corrected, with no guarantee of completeness.
+Limited visibility for the regulator: 
+DoCA
+ has no consolidated, near-real-time view of pending applications, laboratory workload, or compliance trends across the country.
+2.2  Comparable
+ Digitisation Efforts
+Several national metrology bodies (for example, Australia's National Measurement Institute, which publishes a modified national standard and a companion procedure manual alongside OIML R-76) have long supplemented the OIML recommendation with structured, standardised evaluation-report templates and worked examples to reduce inter-laboratory variation. Digital calibration and test-management platforms used in accredited testing more broadly (ISO/IEC 17025 environments) typically combine structured data capture, versioned test methods, and electronic sign-off, but general-purpose Laboratory Information Management Systems (LIMS) are not built around OIML R-76's specific test vocabulary and permissible-error logic, and adapting one is itself a significant configuration exercise. The gap this blueprint targets is a domain-specific system — purpose-built for NAWI type evaluation under Indian Legal Metrology rules — that is as configurable as a LIMS but as precise, out of the box, as a hand-built OIML R-76 checklist.
+2.3  Gaps
+ This System Is Designed to Close
+A single authoritative, versioned encoding of OIML R-76 permissible-error logic, rather than parallel spreadsheets maintained per laboratory.
+End-to-end traceability from raw observation to signed report, satisfying audit and dispute-resolution needs.
+A national, 
+queryable
+ repository instead of siloed local files.
+A configuration-first approach to regulatory change, so future OIML editions or domestic clarifications are a data update, not a software rewrite.
+Field-usable tooling for weighbridge and remote verification contexts where connectivity cannot be assumed.
+3.  System Vision and Differentiation
+The vision for this system is not merely to move an existing spreadsheet workflow onto a web form. It is to make the digital record the single source of truth for a NAWI's type-evaluation history — one that is computed once, correctly, and trusted by laboratories, manufacturers, and the regulator alike. Table 3.1 summarises how the proposed system differs from a typical first-generation digitisation effort (an Excel/Word template converted into a basic web or desktop form).
+Dimension
+Typical First-Generation Digitisation
+Proposed System
+Compliance logic
+Hard-coded in spreadsheet formulae per laboratory
+Centralised, versioned Rule Configuration Service; every computed value stores which rule version produced it
+Regulatory change
+Requires manually editing every template in use
+New OIML edition/amendment loaded as configuration; historical reports remain reproducible against the version in force at test time
+Connectivity
+Assumes continuous local file access
+Offline-capable desktop client for weighbridge/remote sites, syncing when connectivity returns
+Auditability
+Little or no change history
+Immutable, hash-chained audit log for every observation, calculation, review action and signature
+Authenticity
+Recipients cannot verify a report independently
+Public verification portal: scanning a QR code / entering a report number confirms authenticity and current status
+Visibility
+Single-laboratory, single-file view
+Federated multi-laboratory model with a departmental dashboard across all reporting laboratories
+Data quality
+Manual re-checking of entries
+Structured validation at entry, plus a longer-term anomaly-detection layer flagging statistically unusual observations for reviewer attention
+Report formats
+One fixed template
+Standardised PDF and editable DOCX export, generated from the same validated data set
+Table 3.1 — Differentiation from conventional digitisation approaches
+These differentiators are elaborated further in Section 12 (Innovation and Global Differentiation) once the underlying architecture (Section 6), data model (Section 7) and compliance engine (Section 9) have been introduced.
+4.  Stakeholders and User Roles
+The system serves several distinct user communities, each with different responsibilities and access needs. Role-based access control (Section 11) is designed directly around this table.
+Role
+Responsibilities
+System Access
+Lab Technician
+Enters instrument details, environmental conditions, and raw test observations
+Create/edit own draft sessions; no approval rights
+Reviewing / Approving Officer
+Reviews computed compliance results, approves or rejects draft reports, applies digital signature
+Read all sessions in their laboratory; approve/reject; sign
+Laboratory Administrator
+Manages users, instruments, and local configuration within their laboratory
+Full access within own laboratory; cannot alter rule configuration
+Legal Metrology Officer / Controller (
+DoCA
+)
+Monitors approvals nationally, accesses dashboards and analytics, exports data to the e-Governance portal
+Read access across laboratories; no edit rights on test data
+Rule / System Administrator
+Maintains the versioned OIML rule configuration and system-wide settings
+Elevated configuration access; all actions logged
+Manufacturer / Applicant
+Submits models for evaluation, views status and downloads issued reports for their own models
+Restricted, model-scoped read access via a portal account
+Auditor
+Reviews audit logs and report history for compliance or dispute resolution
+Read-only access to audit trail and historical reports
+5.  Functional Requirements
+Table 5.1 restates the problem statement's key functional requirements as discrete, testable requirements and maps each to the primary module responsible for it. This table is the basis of the full traceability matrix in Appendix B.
+ID
+Requirement
+Primary Module
+FR-01
+Capture manufacturer, model and technical specification details
+Instrument & Manufacturer Registry Service
+FR-02
+Record laboratory identity and environmental test conditions
+Test Data Capture & Validation Service
+FR-03
+Enter observations for all applicable OIML R-76 test procedures
+Test Data Capture & Validation Service
+FR-04
+Validate entered data for completeness, type and range
+Validation Engine
+FR-05
+Automatically calculate errors, e/
+mpe
+ ratios and derived values
+Calculation Engine
+FR-06
+Automatically determine pass/fail status per OIML R-76 clause
+Compliance Engine
+FR-07
+Generate standardised, printable digital test reports
+Report Generation Engine
+FR-08
+Export reports in PDF and editable (DOCX) formats
+Report Generation Engine
+FR-09
+Attach photographs and supporting documents to a report
+Report Generation Engine / Object Storage
+FR-10
+Apply digital signatures to approved reports
+Digital Signature & PKI Service
+FR-11
+Maintain a digital repository of completed reports with search
+Repository & Search Service
+FR-12
+Provide instrument-wise test history
+Repository & Search Service
+FR-13
+Provide secure, role-based user access
+Auth & RBAC Service
+FR-14
+Provide a dashboard of testing activity and report status
+Dashboard & Analytics Service
+FR-15
+Support future OIML revisions without core rewrites
+Rule Configuration Service
+6.  System Architecture
+6.1  Architectural
+ Style
+The system follows a layered, service-oriented architecture. Each functional requirement in Section 5 is served by a distinct application service; services are independently deployable and communicate through an internal API gateway. This style is chosen over a single monolithic application for three reasons specific to this domain: (a) the Compliance Engine and Rule Configuration Service must be able to evolve, and be independently version-audited, without redeploying the entire system; (b) laboratories with heavy report-generation load (PDF rendering) should not be able to degrade the responsiveness of data-entry for other laboratories, which argues for isolating report rendering into its own worker pool; and (c) a services boundary between data capture and compliance evaluation creates a natural point at which every computed value can be tagged with the rule version that produced it, which is central to the auditability goal in Section 3.
+6.2  High
+-Level Architecture
+Figure 6.1 — High-level layered architecture
+6.3  Component
+ Description
+Component
+Responsibility
+Auth & RBAC Service
+Authenticates users and enforces the role permissions described in Section 4
+Instrument & Manufacturer Registry
+Master data for manufacturers and instrument models/specifications
+Test Data Capture & Validation Service
+Digital forms for all OIML R-76 test procedures; enforces completeness, type and range checks before data reaches the Calculation Engine
+Compliance & Calculation Engine
+Computes errors and e/
+mpe
+ ratios, then applies the applicable OIML R-76 pass/fail rule set
+Rule Configuration Service
+Stores versioned OIML parameters (accuracy classes, verification-interval bands, permissible-error formulae); every compliance decision is bound to a rule-version identifier
+Report Generation Engine
+Auto-populates the standardised template with instrument, laboratory and result data; renders to PDF and DOCX
+Digital Signature & PKI Service
+Applies signatures and timestamps to approved reports; verifies signatures on request
+Repository & Search Service
+Indexed, searchable store of completed reports and instrument-wise test history
+Dashboard & Analytics Service
+Aggregated views of testing activity, report status and compliance trends for laboratory and departmental users
+API Gateway
+Single entry point for all clients; applies authentication, rate limiting and routing
+6.4  Data
+ Flow
+Figure 6.2 traces a single test report from data entry through to publication, showing the two review loops (validation failure and reviewer rejection) that return control to the technician.
+Figure 6.2 — End-to-end data flow
+6.5  Deployment
+ Architecture
+The application tier is containerised and horizontally scalable behind a load balancer and web-application firewall. Report rendering — the most compute-intensive and 
+burstiest
+ workload — runs in a separate background job pool so it cannot starve interactive data-entry traffic. The primary database is read-replicated for reporting/dashboard queries, and both the database and object storage (which holds PDFs, DOCX files and photographs) are asynchronously replicated to a disaster-recovery region. Digital signing keys are held in a PKI/HSM component isolated from the general application tier.
+Figure 6.3 — Deployment architecture
+7.  Data Design
+7.1  Entity
+-Relationship Model
+Figure 7.1 shows the core entities. A manufacturer submits one or more instrument models; each model may be evaluated across one or more test sessions at a laboratory; each session contains many individual test observations, each classified against a test type whose permissible-error logic is drawn from a specific, versioned rule configuration; a completed session produces exactly one report, which may carry attachments and is traced by an append-only audit log.
+Figure 7.1 — Entity-relationship diagram
+7.2  Entity
+ Notes
+Entity Group
+Design Notes
+MANUFACTURER / INSTRUMENT_MODEL
+Master data captured once per model; includes declared accuracy class, capacity range and verification scale interval (e), which together determine which permissible-error band applies
+LABORATORY / USER
+Laboratories are first-class records so that the departmental dashboard can aggregate by laboratory; users belong to a laboratory except departmental and audit roles
+TEST_SESSION
+One evaluation run for one model at one laboratory; carries environmental conditions and a status field driving the lifecycle in Section 8.2
+TEST_TYPE / RULE_CONFIG
+TEST_TYPE references the OIML annex clause it implements; RULE_CONFIG is the versioned parameter set (see Section 9) a given test 
+type resolves
+ against at calculation time
+TEST_OBSERVATION
+One raw reading plus its computed error, the 
+mpe
+ that was applied, and the resulting pass/fail outcome — the atomic unit of evidence in a report
+REPORT / ATTACHMENT
+Generated once a session is fully evaluated; attachments hold photographs and supporting documents; the report itself is immutable once signed, superseded only by a new, linked revision
+AUDIT_LOG
+Append-only; every state transition, edit and signature event is recorded against the acting user and timestamp
+7.3  Handling
+ Future OIML Revisions
+No permissible-error value, accuracy-class band, or applicability rule is stored as a literal constant inside application code. Instead, each is a row in the Rule Configuration Service, keyed by an OIML edition/amendment identifier and an effective date. When an evaluation is computed, the system resolves the rule set in force at the test date (not the current date), stores that rule-version identifier alongside the computed result, and re-renders historical reports exactly as originally issued even after a newer rule set is loaded. Adopting a new OIML edition is therefore a data-loading and validation exercise — supported by a rule-authoring workflow with its own review/approval step — rather than a code change, directly satisfying the problem statement's requirement to “support future updates whenever OIML recommendations are revised.”
+8.  Core Workflows
+8.1  Test
+ Report Generation Sequence
+Figure 8.1 shows the interaction sequence from data entry to publication, including both the validation-failure and reviewer-rejection loops.
+Figure 8.1 — Test report generation sequence
+8.2  Report
+ Lifecycle
+Every report progresses through a well-defined state machine. A rejected report returns to Draft with reviewer comments attached; a published report may later be archived on schedule or revoked if a non-conformance is discovered after issue — both are recorded, never silently deleted, preserving the audit trail.
+Figure 8.2 — Report lifecycle state diagram
+9.  OIML R-76 Test Coverage and Compliance Engine
+9.1  Annex
+-Wise Test Mapping
+OIML R-76-1 organises pattern-evaluation testing into an administrative/construction check followed by performance, influence-factor and durability testing, with a further annex of additional tests specific to electronic instruments. The Test Data Capture Service exposes one structured form per test type below; each form's fields and validation rules are themselves part of the versioned rule configuration described in Section 7.3.
+Reference
+Test Group
+Representative Checks Captured
+Annex A.1
+Administrative examination
+Documentation completeness, descriptive and verification markings present and legible
+Annex A.2
+Comparison of construction with documentation
+Physical construction matches submitted technical file
+Annex A.3
+Initial examination
+Visual/functional check prior to metrological testing
+Annex A.4
+Performance tests
+Discrimination, repeatability, eccentricity (corner-load), and accuracy/non-linearity across the load range
+Annex A.5
+Influence factors
+Temperature, humidity and (where applicable) inclination effects on zero and span
+Annex A.6
+Endurance / durability test
+Repeated loading cycles to detect drift or mechanical degradation over time
+Annex B
+Additional tests for electronic instruments
+Warm-up time, voltage variation, and other electronic-specific influence quantities
+9.2  Permissible
+ Error Determination
+OIML R-76 expresses permissible error as a function of the verification scale interval (e) and the number of verification scale intervals (n = Max / e) applicable to the instrument's declared accuracy class, with a wider band permitted at subsequent (in-service) verification than at initial verification/type evaluation. Table 9.2 illustrates the structure of this logic as an indicative example of the kind of parameter set the Rule Configuration Service stores; exact numeric bands are loaded from the current OIML R-76 edition in force and must be reconciled against that authoritative text — and any domestic clarification issued by the Legal Metrology Division — before go-live, rather than taken as final from this document.
+Accuracy Class
+Verification Intervals (n)
+Indicative 
+mpe
+ at Initial Verification
+Class III / IIII (common commercial scales)
+0 < n ≤ 500
+± 0.5 e
+Class III / IIII
+500 < n ≤ 2000
+± 1.0 e
+Class III / IIII
+2000 < n ≤ 10000
+± 1.5 e
+Class II (higher precision)
+0 < n ≤ 5000
+± 0.5 e
+Class II
+5000 < n ≤ 20000
+± 1.0 e
+Class II
+20000 < n ≤ 100000
+± 1.5 e
+Table 9.2 — Illustrative structure of a permissible-error rule set (values to be confirmed against the governing OIML R-76 edition)
+9.3  Compliance
+ Decision Logic
+For each observation, the Calculation Engine derives the observed error, resolves the applicable 
+mpe
+ band from the Rule Configuration Service using the instrument's declared class and the test date's effective rule version, and the Compliance Engine then applies the following decision logic:
+Resolve accuracy class, e, and n = Max / e for the instrument under test.
+Resolve the 
+mpe
+ band applicable to n and to the test stage (initial verification / type evaluation vs. subsequent verification).
+Compute the observed error for the observation (e.g., indicated value minus applied reference load, corrected for zero as required by the specific test procedure).
+Compare the absolute observed error to the resolved 
+mpe
+: within band → Pass; outside band → Fail, with the margin recorded.
+Aggregate observation-level outcomes to a session-level result: a session passes only if every mandatory test type required for the instrument's category has a Pass outcome; any Fail, or any mandatory test type left incomplete, blocks report approval.
+Persist the rule-version identifier, computed error, applied 
+mpe
+ and outcome against the observation, immutably, for audit and later reproducibility.
+10.  Report Generation and Document Management
+Once a test session's compliance results are complete, the Report Generation Engine auto-populates a standardised template — structured along the lines of the OIML R-76-2 pattern-evaluation report — with manufacturer and instrument details, laboratory and environmental conditions, the full observation set with computed errors and outcomes, and an overall result. The same validated data set drives two renderers: a fixed-layout PDF for legal/archival purposes and an editable DOCX for cases where an approving officer must add contextual remarks before final sign-off. Photographs and supporting documents are attached at the report level and stored in object storage, referenced rather than embedded, to keep the primary record lightweight and independently verifiable.
+Every generated report receives a unique report number and a QR code linking to the public verification portal (Section 12).
+A report is immutable once digitally signed; any correction is issued as a new, explicitly linked revision, never an in-place edit.
+The repository supports search by manufacturer, model, laboratory, date range, accuracy class and compliance outcome, and exposes instrument-wise test history for repeat submissions.
+Bulk export to the national Legal Metrology e-Governance portal is exposed as a versioned API/export job rather than a manual file transfer.
+11.  Security, Data Integrity and Auditability
+11.1  Access
+ Control
+Authentication is centralised in the Auth & RBAC Service; authorisation follows the role matrix defined in Section 4, enforced at the API Gateway and re-checked at each service boundary (defence in depth). Laboratory-scoped roles cannot see another laboratory's draft data; only published, signed reports are visible departmentally and to the relevant manufacturer.
+11.2  Data
+ Integrity
+Every observation, calculation, review action and signature event is written to an append-only audit log; log entries are hash-chained so that any retroactive alteration is detectable.
+Digital signatures are applied through a PKI/HSM component, isolated from the general application tier, so signing keys are never exposed to application code.
+Reports are content-addressed (hashed) at signing time; the public verification portal recomputes and compares this hash to confirm a document has not been altered since issue.
+11.3  Transport
+ and Storage Security
+TLS in transit for all client-service and inter-service communication.
+Encryption at rest for the database and object storage, including photographs and supporting documents.
+Secrets and signing keys held in a dedicated secrets manager / HSM, never in application configuration files.
+Regular, automated, encrypted backups with tested restore procedures and a defined Recovery Point/Time Objective.
+11.4  Privacy
+ and Data Retention
+Manufacturer and applicant data is scoped so applicants can see only their own models and reports. Retention periods for draft (unpublished) data, superseded report revisions, and audit logs are configurable per departmental record-retention policy, with archival rather than deletion as the default for anything that has entered the compliance workflow.
+12.  Innovation and Global Differentiation
+Building on the vision in Section 3, this section details the specific mechanisms that differentiate the proposed system from a conventional single-laboratory digitisation project.
+12.1  Configuration
+-First Compliance
+The Rule Configuration Service is the single place OIML R-76 parameters live. A rule-authoring workflow (draft → technical review → approval → scheduled activation) lets the Legal Metrology Division stage a new OIML edition or domestic clarification ahead of its effective date, test it against sample instruments in a sandbox, and activate it without touching application code — turning a historically multi-month template-rewrite exercise into a data-governance task.
+12.2  Federated
+, Multi-Laboratory Operation
+Rather than one deployment per laboratory, the architecture supports many laboratories on a shared platform with strict data isolation, giving the Department of Consumer Affairs the first consolidated, near-real-time national view of model approvals, laboratory throughput and compliance trends referenced in Section 1.4.
+12.3  Offline
+-Capable Field Client
+Weighbridges and remote verification sites cannot always guarantee connectivity. The desktop client caches reference data (instrument registry, active rule version) locally, allows full data entry offline, and synchronises when connectivity returns, with conflict handling that favours laboratory-side edits and flags true conflicts for manual reconciliation.
+12.4  Tamper
+-Evident, Publicly Verifiable Reports
+The hash-chained audit log (Section 11.2) and per-report content hash allow any party — a market surveillance officer, a consumer, a court — to verify a report's authenticity and current status (published, superseded, revoked) through a public portal without needing system access, closing a gap that purely internal digitisation efforts leave open.
+12.5  Assisted
+ Data-Quality Review (Roadmap)
+Once sufficient historical observation data has accumulated, a later phase introduces a statistical anomaly-detection layer that flags observations inconsistent with an instrument's own test history or with peer instruments of the same model, surfacing them for reviewer attention rather than auto-rejecting them. This is explicitly a human-in-the-loop aid, never a silent override of the deterministic OIML compliance logic in Section 9.3, and is scoped to Phase 3 of the roadmap in Section 15 so that the core system does not depend on it for correctness.
+13.  Technology Stack
+The stack below is a recommended baseline chosen for maturity, government-deployment familiarity, and strong support for the compliance-critical, document-heavy workload this system centres on. Equivalent substitutions are noted where relevant; the architecture in Section 6 does not depend on any single vendor.
+Layer
+Recommended Technology
+Frontend (Web)
+React with TypeScript; component library aligned to GIGW/accessibility guidelines
+Frontend (Desktop / Offline)
+Electron or a native cross-platform toolkit, with a local embedded database for offline caching and sync
+Backend Services
+Java (Spring Boot) or Node.js (
+NestJS
+); either supports the layered service architecture in Section 6
+API Gateway
+Kong, NGINX, or a managed cloud API gateway
+Relational Database
+PostgreSQL, with read replicas for reporting/dashboard load
+Object Storage
+S3-compatible object store for PDFs, DOCX files, photographs and attachments
+Report Rendering
+Template-driven PDF generation (e.g., a headless rendering service) and DOCX generation via an Open XML library, run in a dedicated worker pool
+Digital Signature / PKI
+PKCS#11-compliant HSM or a cloud KMS supporting document signing and timestamping
+Search / Indexing
+PostgreSQL full-text search initially; Elasticsearch/OpenSearch if repository scale later warrants it
+Authentication
+OAuth2 / OpenID Connect; integration path to a government SSO where mandated
+Containerisation & Orchestration
+Docker with Kubernetes (or a managed container service) for horizontal scaling
+Monitoring & Logging
+Centralised structured logging with an audit-log-specific, append-only store distinct from general application logs
+CI/CD
+Git-based pipeline with automated tests gating deployment, particularly for any change touching the Compliance Engine or Rule Configuration Service
+14.  Non-Functional Requirements
+Attribute
+Target
+Performance
+Report generation (compliance calculation through PDF render) completes within a few seconds for a standard test session under normal load
+Scalability
+Application tier scales horizontally; architecture supports onboarding additional laboratories without redesign
+Availability
+Target high availability for the production service, with read replicas and a defined disaster-recovery region
+Usability
+Data-entry forms mirror the structure of the physical OIML R-76 test procedures technicians already follow, minimising retraining
+Localisation
+Bilingual (Hindi/English) interface and report labels, consistent with the Department's public-facing material
+Portability
+Web client runs on standard evergreen browsers; desktop client supports common desktop operating systems used in laboratories
+Maintainability
+Service boundaries in Section 6 allow the Compliance Engine and Rule Configuration Service to be updated independently of the UI and repository
+Auditability
+Every compliance-relevant action is logged per Section 11.2; logs are retained per the Department's record-retention policy
+Interoperability
+Structured export/API for the national Legal Metrology e-Governance portal and for accredited external LIMS where relevant
+15.  Implementation Roadmap
+The roadmap is organised in six phases over roughly six months, sequenced so that the Compliance Engine — the component carrying the most regulatory and correctness risk — is built and hardened early, before UI and reporting features that depend on it.
+Figure 15.1 — Indicative phased implementation roadmap
+Phase
+Key Activities
+Phase 1 — Discovery
+Finalise requirements with 
+DoCA
+ and partner laboratories; digitise the current OIML R-76 rule set into the versioned configuration format
+Phase 2 — Core Engine
+Data model and database; Calculation and Compliance Engine; Rule Configuration Service
+Phase 3 — Reporting & UI
+Web/desktop data-entry forms; Report Generation Engine; dashboard and search
+Phase 4 — Security
+RBAC and authentication; digital signature and PKI integration
+Phase 5 — Testing & Pilot
+Integration and user-acceptance testing; pilot at one designated laboratory
+Phase 6 — Rollout
+Training and documentation; phased national rollout to additional laboratories
+16.  Testing and Validation Strategy
+Unit testing of the Calculation and Compliance Engine against a library of known-answer test cases derived from historical, manually verified reports, for every accuracy class and verification-interval band.
+Rule-configuration regression testing: whenever a new OIML rule version is staged, historical reports are re-computed in a sandbox and compared against their originally issued results to confirm no unintended drift.
+Integration testing across the full sequence in Figure 8.1, including both the validation-failure and reviewer-rejection loops.
+Security testing: role-boundary testing to confirm laboratory data isolation, penetration testing of the API Gateway and public verification portal, and signature-verification testing.
+Usability testing with practising lab technicians and approving officers, since the data-entry workflow directly affects error rates in the legal record.
+Pilot validation at one designated laboratory, running the digital system in parallel with the existing manual process for an agreed period before cut-over, with discrepancies formally reconciled.
+User Acceptance Testing (UAT) sign-off from 
+DoCA
+ before phased national rollout.
+17.  Challenges and Mitigation Strategies
+Challenge
+Mitigation
+Faithfully encoding OIML R-76's test procedures and permissible-error logic without misinterpreting the source recommendation
+Joint rule-authoring review with metrology domain experts; known-answer regression tests against historical manually verified reports before any rule version is activated
+Resistance to change from laboratory staff accustomed to spreadsheet workflows
+Data-entry forms mirror existing physical test procedures; phased pilot with parallel manual operation; structured training
+Connectivity gaps at weighbridge and remote verification sites
+Offline-capable desktop client with local caching and conflict-aware sync (Section 12.3)
+Keeping historical reports reproducible after a rule update
+Every computed value is bound to the rule-version identifier in force at test time (Section 7.3); historical re-render never uses the current rule set
+Legal and evidentiary acceptance of a digitally signed, born-digital report
+PKI/HSM-backed signatures, hash-chained audit log, and a public verification portal to establish authenticity independent of the issuing laboratory
+Data migration from years of existing spreadsheet-based records
+A dedicated, semi-automated migration tool with manual review queues for records that do not map cleanly to the new structured schema
+Scaling to many laboratories with heterogeneous local practice
+Federated architecture (Section 12.2) with laboratory-scoped configuration for anything genuinely local, while compliance logic remains centrally governed
+Maintaining performance during bulk report-generation periods (e.g., month-end)
+Report rendering isolated into its own background worker pool (Section 6.5), independently scalable from the interactive data-entry path
+18.  Risk Register
+ID
+Risk
+Likelihood
+Impact
+Mitigation
+R-01
+Incorrect encoding of an OIML permissible-error rule
+Low (post-review)
+High
+Mandatory domain-expert sign-off and regression testing before any rule version activates (Section 16)
+R-02
+Signing-key compromise
+Low
+High
+HSM/PKI isolation; key rotation policy; access logging (Section 11.3)
+R-03
+Laboratory data leakage across tenant boundary
+Low
+High
+Enforced at API Gateway and re-checked per service; periodic access-control audits
+R-04
+Underestimated migration effort from legacy records
+Medium
+Medium
+Time-boxed migration pilot early in Phase 5 to size the effort before full commitment
+R-05
+Low adoption / workaround by laboratory staff
+Medium
+Medium
+Parallel-run pilot, training, and workflow parity with existing physical test procedures
+R-06
+Delay in OIML/domestic rule clarification reaching the Rule Configuration Service
+Medium
+Medium
+Formal liaison channel with the Legal Metrology Division; sandboxed staging ahead of effective dates
+R-07
+Report-rendering performance degradation under peak load
+Medium
+Low
+Isolated worker pool, horizontal scaling, load testing before rollout (Section 6.5, 16)
+R-08
+Anomaly-detection layer (Phase 3+) produces false positives that erode reviewer trust
+Medium
+Low
+Kept strictly advisory/human-in-the-loop; never overrides deterministic compliance logic (Section 12.5)
+19.  Team Structure and Resource Plan
+An indicative cross-functional team for the phases in Section 15. Roles can be combined on a smaller team; the Metrology Domain Advisor role should not be, given the correctness stakes described throughout this document.
+Role
+Indicative Headcount
+Focus
+Project / Product Lead
+1
+Scope, stakeholder liaison with 
+DoCA
+ and pilot laboratory, roadmap tracking
+Metrology Domain Advisor
+1 (part-time / consulting)
+Validates OIML R-76 rule encoding and known-answer test cases
+Backend Engineers
+2–3
+Core services: Calculation/Compliance Engine, Rule Configuration Service, Registry and Repository services
+Frontend Engineer(s)
+1–2
+Web and desktop data-entry and dashboard clients
+Database / DevOps Engineer
+1
+Schema design, deployment pipeline, monitoring, backups
+Security Engineer (part-time)
+1
+RBAC review, PKI/HSM integration, penetration test coordination
+QA / Test Engineer
+1
+Test-case authoring, regression suite for the Compliance Engine, UAT coordination
+UX Researcher (part-time)
+1
+Usability testing with technicians and approving officers
+Technical Writer
+1 (part-time)
+User manuals, training material, this document's ongoing maintenance
+20.  Future Scope
+Extend the Rule Configuration approach to other OIML recommendations (e.g., for automatic weighing instruments or other legal-metrology instrument categories), reusing the same versioned-rule and audit architecture.
+Integrate with subsequent (in-service) verification workflows in the field, linking a stamped instrument back to its original type-evaluation report.
+Introduce the anomaly-detection layer described in Section 12.5 once sufficient historical observation volume exists.
+Support direct, calibrated-equipment data feeds (load cells, environmental sensors) as an optional input path alongside manual entry, with the Validation Engine treating both uniformly.
+Explore blockchain-anchored or similarly externally-verifiable anchoring of report hashes as a further strengthening of the public verification portal in Section 12.4.
+Publish anonymised, aggregate compliance-trend data to support policy research by the Legal Metrology Division.
+21.  Conclusion
+The current manual, spreadsheet-based approach to NAWI type-evaluation reporting under OIML R-76 is slow, error-prone, and difficult to keep current with regulatory change. This blueprint proposes a system architecture that treats compliance logic as governed, versioned configuration rather than code; that builds auditability and public verifiability into the report itself rather than bolting it on afterward; and that is designed from the outset for the connectivity realities of Indian testing laboratories and weighbridge sites. Implemented as described — with the phased roadmap in Section 15 and the domain-expert-reviewed rule encoding emphasised throughout — the system satisfies every functional requirement of Problem Statement 26035 while positioning the Department of Consumer Affairs with a national, near-real-time view of model approvals that the current process cannot provide. The team receiving this document should be able to proceed directly into detailed design and sprint planning using Sections 6 through 16 without further independent domain research, escalating only the OIML rule-encoding review in Section 9 and Section 16 to a qualified metrology advisor before any rule version is activated in production.
+22.  References
+The Legal Metrology Act, 2009, Government of India.
+The Legal Metrology (General) Rules, 2011, Government of India.
+OIML R 76-1, Non-automatic weighing instruments — Part 1: Metrological and technical requirements — Tests, International Organization of Legal Metrology (editions 1992(E) with Amendment 1 (1994), and 2006(E)).
+OIML R 76-2, Non-automatic weighing instruments — Part 2: Pattern evaluation report, International Organization of Legal Metrology.
+NMI R 76-1 (2004), National Measurement Institute, Australia — modified national adoption of OIML R 76-1, referenced for its companion procedure-manual approach to standardising evaluation reports.
+Department of Consumer Affairs, Ministry of Consumer Affairs, Food & Public Distribution — Problem Statement 26035.
+Note: this blueprint references the general structure and provisions of the above instruments from public regulatory literature. Before implementation, the project team must obtain and reconcile the Rule Configuration Service's parameters against the exact, currently-in-force OIML R-76 edition/amendment and any domestic Legal Metrology Division clarifications, as flagged in Section 9.2.
+Appendix A — Glossary
+Term
+Meaning
+NAWI
+Non-Automatic Weighing Instrument
+OIML
+International Organization of Legal Metrology
+R-76
+OIML Recommendation for Non-Automatic Weighing Instruments
+mpe
+Maximum Permissible Error
+e
+Verification scale interval
+n
+Number of verification scale intervals (Max / e)
+DoCA
+Department of Consumer Affairs
+RBAC
+Role-Based Access Control
+PKI / HSM
+Public Key Infrastructure / Hardware Security Module
+LIMS
+Laboratory Information Management System
+UAT
+User Acceptance Testing
+Appendix B — Requirement Traceability Matrix
+Cross-reference from each problem-statement requirement (Section 5) to the document section(s) and diagram(s) providing its detailed design.
+ID
+Requirement
+Section(s)
+FR-01
+Instrument/manufacturer capture
+§ 7.1, 7.2
+FR-02
+Lab & environmental conditions
+§ 7.2, Fig. 6.2
+FR-03
+OIML test observation entry
+§ 9.1, Fig. 6.2
+FR-04
+Data validation
+§ 6.3, Fig. 8.1
+FR-05
+Error / 
+mpe
+ calculation
+§ 9.2, 9.3
+FR-06
+Pass/fail determination
+§ 9.3
+FR-07
+Standardised report generation
+§ 10
+FR-08
+PDF / DOCX export
+§ 10
+FR-09
+Photograph / document attachment
+§ 7.2, 10
+FR-10
+Digital signatures
+§ 11.2, Fig. 8.2
+FR-11
+Repository & search
+§ 10, Fig. 6.1
+FR-12
+Instrument-wise history
+§ 7.1, 10
+FR-13
+Secure role-based access
+§ 4, 11.1
+FR-14
+Dashboard
+§ 6.3, Fig. 6.1
+FR-15
+Forward compatibility with OIML revisions
+§ 7.3, 12.1

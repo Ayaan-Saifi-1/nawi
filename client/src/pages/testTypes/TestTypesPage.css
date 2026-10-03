@@ -1,0 +1,270 @@
+.test-types-page {
+  display: grid;
+  gap: 20px;
+}
+
+.test-types-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.test-types-card,
+.test-types-info-card {
+  overflow: hidden;
+}
+
+.test-types-section-heading {
+  padding: 18px 20px;
+  border-bottom: 1px solid #26334D;
+  background: #111B2D;
+}
+
+.test-types-section-heading h2 {
+  margin: 0;
+  color: #E6ECF5;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.test-types-section-heading p {
+  margin: 6px 0 0;
+  color: #AAB8CC;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.test-types-table-scroll {
+  padding: 0;
+  overflow-x: auto;
+}
+
+.test-types-table,
+.mpe-table,
+.test-types-reference-table {
+  width: 100%;
+  min-width: 850px;
+  table-layout: fixed;
+}
+
+.test-types-table th,
+.test-types-table td,
+.mpe-table th,
+.mpe-table td,
+.test-types-reference-table th,
+.test-types-reference-table td {
+  white-space: normal;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.test-types-table th:nth-child(1) { width: 21%; }
+.test-types-table th:nth-child(2) { width: 27%; }
+.test-types-table th:nth-child(3) { width: 37%; }
+.test-types-table th:nth-child(4) { width: 15%; }
+
+.test-types-procedure-code {
+  display: block;
+  margin-bottom: 5px;
+  color: #67E8F9;
+  font: 700 12px/1.5 'JetBrains Mono', monospace;
+}
+
+.test-types-procedure-title {
+  display: block;
+  color: #E6ECF5;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.test-types-formula,
+.test-types-reference {
+  color: #C5D0E3 !important;
+  line-height: 1.55;
+}
+
+.test-types-formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.test-types-reference {
+  font-size: 12px;
+}
+
+.test-types-empty {
+  padding: 24px !important;
+  text-align: center;
+  color: #AAB8CC !important;
+}
+
+.mpe-table {
+  min-width: 620px;
+}
+
+.mpe-table th:nth-child(1) { width: 24%; }
+.mpe-table th:nth-child(2) { width: 52%; }
+.mpe-table th:nth-child(3) { width: 24%; }
+
+.mpe-table tbody th {
+  color: #E6ECF5;
+  font-weight: 700;
+}
+
+.mpe-table td {
+  color: #D8E1EF !important;
+}
+
+.mpe-table .mpe-class-start th,
+.mpe-table .mpe-class-start td {
+  border-top: 1px solid #3A4B6A;
+}
+
+.mpe-load-range {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.mpe-factor {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: #A7F3D0 !important;
+}
+
+.mpe-stage-note {
+  padding: 15px 20px;
+  border-top: 1px solid #26334D;
+  background: #17243A;
+  color: #E6ECF5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.test-types-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.test-types-info-body {
+  padding: 18px 20px;
+  color: #D8E1EF;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.test-types-info-body > :first-child { margin-top: 0; }
+.test-types-info-body > :last-child { margin-bottom: 0; }
+
+.test-types-equation {
+  margin: 14px 0;
+  padding: 12px;
+  border: 1px solid #2D405E;
+  border-radius: 8px;
+  background: #0F172A;
+  color: #E6ECF5;
+  text-align: center;
+  font: 600 15px/1.5 'JetBrains Mono', monospace;
+}
+
+.test-types-definition {
+  margin-top: 16px !important;
+  color: #AAB8CC;
+}
+
+.test-types-example-list {
+  display: grid;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.test-types-caution {
+  margin-top: 16px !important;
+  padding: 12px;
+  border: 1px solid #385477;
+  border-radius: 8px;
+  background: #162A43;
+  color: #DCEBFA;
+}
+
+.test-types-definitions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 6px 20px 14px;
+}
+
+.test-types-definitions > div {
+  display: flex;
+  gap: 9px;
+  padding: 12px 10px;
+  border-bottom: 1px solid #26334D;
+}
+
+.test-types-definitions dt {
+  flex: 0 0 auto;
+  color: #67E8F9;
+  font: 700 12px/1.5 'JetBrains Mono', monospace;
+}
+
+.test-types-definitions dd {
+  margin: 0;
+  color: #D8E1EF;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.test-types-reference-table {
+  min-width: 520px;
+}
+
+.test-types-reference-table th:nth-child(1) { width: 52%; }
+.test-types-reference-table th:nth-child(2) { width: 28%; }
+.test-types-reference-table th:nth-child(3) { width: 20%; }
+.test-types-reference-table td:last-child { text-align: right; }
+
+.test-types-source {
+  margin: 0;
+  padding: 13px 20px;
+  border-top: 1px solid #26334D;
+  color: #8FA0BC;
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  .test-types-info-grid { grid-template-columns: 1fr; }
+  .test-types-definitions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .test-types-section-heading { padding: 15px; }
+  .test-types-info-body { padding: 15px; }
+  .test-types-definitions { grid-template-columns: 1fr; padding: 4px 12px 12px; }
+}
+/* Keep the global legacy Test Types nowrap rules from forcing text across columns. */
+.test-types-page table.test-types-table {
+  width: 100%;
+  min-width: 980px;
+  table-layout: fixed;
+}
+
+.test-types-page table.test-types-table th,
+.test-types-page table.test-types-table td {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  vertical-align: top;
+}
+
+.test-types-page table.test-types-table th:nth-child(1) { width: 20% !important; }
+.test-types-page table.test-types-table th:nth-child(2) { width: 30% !important; }
+.test-types-page table.test-types-table th:nth-child(3) { width: 34% !important; }
+.test-types-page table.test-types-table th:nth-child(4) { width: 16% !important; }
+
+.test-types-page table.test-types-table .test-types-formula {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
