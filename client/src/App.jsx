@@ -40,19 +40,15 @@ const queryClient = new QueryClient({
 });
 
 function RoleGuard({ allowedRoles, children }) {
-  const { user } = useAuthStore();
+  const { user, isAuthenticated } = useAuthStore();
   const addToast = useNotificationStore((s) => s.addToast);
   useEffect(() => {
     if (user?.role && user.role !== 'admin' && allowedRoles && !allowedRoles.includes(user.role)) {
       addToast({ type: 'error', message: 'You do not have permission to access this page.' });
     }
   }, [user?.role, allowedRoles, addToast]);
-  if (!user || !user.role) {
-    const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
-    if (isManualLogout) {
-      return <Navigate to="/login" replace />;
-    }
-    return <Navigate to="/dashboard" replace />;
+  if (!isAuthenticated || !user || !user.role) {
+    return <Navigate to="/login" replace />;
   }
   if (user.role !== 'admin' && allowedRoles && !allowedRoles.includes(user.role)) {
     return <Navigate to="/dashboard" replace />;
@@ -62,9 +58,8 @@ function RoleGuard({ allowedRoles, children }) {
 
 function LoginRouteGuard({ children }) {
   const { isAuthenticated } = useAuthStore();
-  const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
 
-  if (isAuthenticated || !isManualLogout) {
+  if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -73,41 +68,9 @@ function LoginRouteGuard({ children }) {
 
 function ProtectedLayout({ isMobileOpen, setIsMobileOpen, isSidebarCollapsed }) {
   const { isAuthenticated } = useAuthStore();
-  const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
-
-  if (!isAuthenticated && isManualLogout) {
-    return <Navigate to="/login" replace />;
-  }
 
   if (!isAuthenticated) {
-    return (
-      <div
-        className="app-route-loading"
-        role="status"
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#0f172a',
-          color: '#94a3b8',
-          gap: 12,
-        }}
-      >
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            border: '3px solid #334155',
-            borderTopColor: '#38bdf8',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-          }}
-        />
-        <p style={{ margin: 0, fontSize: 14 }}>Loading Dashboard...</p>
-      </div>
-    );
+    return <Navigate to="/login" replace />;
   }
 
   return (

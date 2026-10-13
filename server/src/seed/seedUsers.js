@@ -7,9 +7,10 @@ import { Laboratory } from '../models/Laboratory.js';
 import { env } from '../config/env.js';
 
 export async function seedUsers() {
-  if (process.env.NODE_ENV === 'production') {
-    console.error('FATAL: Seed users cannot be created in production mode!');
-    throw new Error('Seed users creation is forbidden in production environment');
+  const userCount = await User.countDocuments();
+  if (process.env.NODE_ENV === 'production' && process.env.AUTO_SEED !== 'true' && userCount > 0) {
+    console.log('Skipping seedUsers: users already exist in production.');
+    return;
   }
   console.log('Seeding Users & Demo Manufacturer...');
 

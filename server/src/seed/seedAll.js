@@ -12,7 +12,7 @@ export async function seedAll() {
   await seedUsers();
   await seedRuleConfigs();
   await seedTestTypes();
-  if (env.NODE_ENV !== 'production') {
+  if (env.NODE_ENV !== 'production' || process.env.AUTO_ACTIVATE_RULES === 'true') {
     await activateDevRules();
   }
   await seedDemoData();

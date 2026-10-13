@@ -28,8 +28,7 @@ export default function LoginPage() {
   const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
-    const isManualLogout = typeof window !== 'undefined' && sessionStorage.getItem('nawi_manual_logout') === 'true';
-    if (isAuthenticated || !isManualLogout) {
+    if (isAuthenticated) {
       navigate('/dashboard', { replace: true });
     }
   }, [isAuthenticated, navigate]);
