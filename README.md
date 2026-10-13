@@ -21,44 +21,20 @@ Digital Metrology Test Report Generation System for Non-Automatic Weighing Instr
 
 ---
 
-## Deploy to Render (Free Web Service)
+## Deploy to Render (100% Free Blueprint — No External Services Required)
 
-Deploy the entire platform (Frontend React SPA + Backend Express REST API) to Render on the **Free Web Service** tier in 5 minutes.
+You can deploy the entire platform (Frontend React SPA + Backend Express REST API + Database) **using only Render Blueprint on the Free tier** with **nothing else to configure**:
 
-### Method A: 1-Click Render Blueprint (Recommended)
+### 1-Click Render Blueprint Deployment
 
 1. Go to your [Render Dashboard](https://dashboard.render.com/).
 2. Click **New +** -> **Blueprint**.
-3. Connect your GitHub repository (`Ayaan-Saifi-1/nawi`).
-4. Render will automatically detect `render.yaml`.
-5. Under Environment Variables:
-   - Provide `MONGO_URI` (from your free [MongoDB Atlas M0](https://www.mongodb.com/atlas) cluster).
-6. Click **Apply**. Render will automatically build the client, start the server, and seed initial accounts!
-
-### Method B: Manual Web Service Setup
-
-1. In Render Dashboard, click **New +** -> **Web Service**.
-2. Connect repository: `Ayaan-Saifi-1/nawi`.
-3. Configure the following fields:
-   - **Name**: `nawi-digital-metrology`
-   - **Language / Runtime**: `Node`
-   - **Build Command**: `npm run render-build`
-   - **Start Command**: `npm start`
-   - **Instance Type**: `Free`
-   - **Health Check Path**: `/health`
-4. Add the following **Environment Variables**:
-   | Variable | Value | Description |
-   | :--- | :--- | :--- |
-   | `NODE_ENV` | `production` | Production mode |
-   | `MONGO_URI` | `mongodb+srv://<user>:<password>@cluster0.mongodb.net/nawi?retryWrites=true&w=majority` | Your MongoDB Atlas connection URI |
-   | `JWT_SECRET` | *(click Generate or 64-char random hex)* | JWT signing secret |
-   | `REPORT_INTEGRITY_SECRET` | *(click Generate or 64-char random hex)* | HMAC report digest secret |
-   | `CRON_SECRET` | *(click Generate or 32-char random hex)* | Cron job auth secret |
-   | `AUTO_SEED` | `true` | Automatically seeds demo accounts and rules on first launch |
-   | `AUTO_ACTIVATE_RULES` | `true` | Activates standard OIML rules for testing |
-   | `CLIENT_ORIGIN` | `https://nawi.matrikaregmi.com.np,*` | Allowed CORS origins |
-   | `PUBLIC_APP_URL` | `https://nawi.matrikaregmi.com.np` | Public URL embedded in QR codes and reports |
-5. Click **Deploy Web Service**.
+3. Select your GitHub repository: `Ayaan-Saifi-1/nawi`.
+4. Render will read [render.yaml](render.yaml) automatically.
+5. Click **Apply**.
+   - No external database required (the service has an integrated embedded database engine that auto-boots and seeds initial accounts).
+   - If you ever want to attach an external MongoDB Atlas cluster in the future, you can simply add `MONGO_URI` in Render Environment settings.
+6. Render will automatically build the client, launch the server, and seed initial accounts!
 
 ---
 

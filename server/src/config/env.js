@@ -15,13 +15,9 @@ if (!process.env.JWT_SECRET) {
   console.warn('[SECURITY] JWT_SECRET not provided; generated ephemeral 64-character secret.');
 }
 
-const requiredEnvVars = ['MONGO_URI'];
-
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    console.error(`FATAL ERROR: Environment variable ${envVar} is missing.`);
-    process.exit(1);
-  }
+if (!process.env.MONGO_URI) {
+  process.env.MONGO_URI = 'embedded';
+  console.log('[CONFIG] MONGO_URI not provided; defaulting to embedded standalone database mode.');
 }
 
 const insecureDefaults = new Set([

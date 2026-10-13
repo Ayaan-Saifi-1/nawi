@@ -12,7 +12,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
-        sync: false
+        value: embedded
       - key: JWT_SECRET
         generateValue: true
       - key: REPORT_INTEGRITY_SECRET
@@ -24,4 +24,6 @@ services:
       - key: AUTO_ACTIVATE_RULES
         value: "true"
       - key: CLIENT_ORIGIN
-        value: "*"
+        value: "https://nawi.matrikaregmi.com.np,*"
+      - key: PUBLIC_APP_URL
+        value: "https://nawi.matrikaregmi.com.np"
