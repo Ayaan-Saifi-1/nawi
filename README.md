@@ -7,6 +7,8 @@ Digital Metrology Test Report Generation System for Non-Automatic Weighing Instr
 ## Table of Contents
 
 - [Overview](#overview)
+- [Deploy to Render (Free Web Service)](#deploy-to-render-free-web-service)
+- [Custom Domain Setup (`nawi.matrikaregmi.com.np`)](#custom-domain-setup-nawimatrikaregmicomnp)
 - [Architecture and Tech Stack](#architecture-and-tech-stack)
 - [Key Features](#key-features)
 - [Approved Technical Deviations](#approved-technical-deviations)
@@ -16,6 +18,63 @@ Digital Metrology Test Report Generation System for Non-Automatic Weighing Instr
 - [Available Scripts](#available-scripts)
 - [Verification and Testing](#verification-and-testing)
 - [System Limitations](#system-limitations)
+
+---
+
+## Deploy to Render (Free Web Service)
+
+Deploy the entire platform (Frontend React SPA + Backend Express REST API) to Render on the **Free Web Service** tier in 5 minutes.
+
+### Method A: 1-Click Render Blueprint (Recommended)
+
+1. Go to your [Render Dashboard](https://dashboard.render.com/).
+2. Click **New +** -> **Blueprint**.
+3. Connect your GitHub repository (`Ayaan-Saifi-1/nawi`).
+4. Render will automatically detect `render.yaml`.
+5. Under Environment Variables:
+   - Provide `MONGO_URI` (from your free [MongoDB Atlas M0](https://www.mongodb.com/atlas) cluster).
+6. Click **Apply**. Render will automatically build the client, start the server, and seed initial accounts!
+
+### Method B: Manual Web Service Setup
+
+1. In Render Dashboard, click **New +** -> **Web Service**.
+2. Connect repository: `Ayaan-Saifi-1/nawi`.
+3. Configure the following fields:
+   - **Name**: `nawi-digital-metrology`
+   - **Language / Runtime**: `Node`
+   - **Build Command**: `npm run render-build`
+   - **Start Command**: `npm start`
+   - **Instance Type**: `Free`
+   - **Health Check Path**: `/health`
+4. Add the following **Environment Variables**:
+   | Variable | Value | Description |
+   | :--- | :--- | :--- |
+   | `NODE_ENV` | `production` | Production mode |
+   | `MONGO_URI` | `mongodb+srv://<user>:<password>@cluster0.mongodb.net/nawi?retryWrites=true&w=majority` | Your MongoDB Atlas connection URI |
+   | `JWT_SECRET` | *(click Generate or 64-char random hex)* | JWT signing secret |
+   | `REPORT_INTEGRITY_SECRET` | *(click Generate or 64-char random hex)* | HMAC report digest secret |
+   | `CRON_SECRET` | *(click Generate or 32-char random hex)* | Cron job auth secret |
+   | `AUTO_SEED` | `true` | Automatically seeds demo accounts and rules on first launch |
+   | `AUTO_ACTIVATE_RULES` | `true` | Activates standard OIML rules for testing |
+   | `CLIENT_ORIGIN` | `https://nawi.matrikaregmi.com.np,*` | Allowed CORS origins |
+   | `PUBLIC_APP_URL` | `https://nawi.matrikaregmi.com.np` | Public URL embedded in QR codes and reports |
+5. Click **Deploy Web Service**.
+
+---
+
+## Custom Domain Setup (`nawi.matrikaregmi.com.np`)
+
+To connect your custom domain:
+
+1. In your Render Web Service dashboard, navigate to **Settings** -> **Custom Domains**.
+2. Click **Add Custom Domain** and enter: `nawi.matrikaregmi.com.np`.
+3. Go to your DNS provider for `matrikaregmi.com.np` and add the DNS record shown by Render:
+   - **Type**: `CNAME`
+   - **Name / Host**: `nawi`
+   - **Target / Value**: `<your-service-name>.onrender.com`
+   *(Or if configuring with an `A` record: Set `Host: nawi`, `Points to: 216.24.57.1` [Render's Anycast IP]).*
+4. Render will verify DNS propagation and issue a free automatic SSL/TLS certificate (HTTPS) via Let's Encrypt.
+5. Your application will be live and secure at **`https://nawi.matrikaregmi.com.np`**!
 
 ---
 

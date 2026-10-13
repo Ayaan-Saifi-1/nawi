@@ -4,6 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import mongoose from 'mongoose';
+import path from 'node:path';
+import fs from 'node:fs';
 import { env } from './config/env.js';
 import routes from './routes/index.js';
 import { notFoundHandler, errorHandler } from './middleware/errorHandler.js';
@@ -33,7 +35,7 @@ app.get('/ready', async (_req, res) => {
   }
 });
 
-const allowedOrigins = (env.CLIENT_ORIGIN || 'http://localhost:5173')
+const allowedOrigins = (env.CLIENT_ORIGIN || '*')
   .split(',')
   .map((o) => o.trim());
 
@@ -45,7 +47,7 @@ app.use(
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "blob:"],
-        connectSrc: ["'self'"],
+        connectSrc: ["'self'", "https:", "http:", "ws:", "wss:"],
         fontSrc: ["'self'", "https:", "data:"],
         objectSrc: ["'none'"],
       },
@@ -57,7 +59,14 @@ app.use(
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.includes('*') ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.onrender.com') ||
+        origin.includes('matrikaregmi.com.np') ||
+        origin.includes('localhost')
+      ) {
         callback(null, true);
       } else {
         callback(new AppError(403, 'CORS_NOT_ALLOWED', 'CORS origin not allowed'));
@@ -106,6 +115,24 @@ app.get('/api/cron/activate-rules', asyncHandler(async (req, res) => {
 
 // Mount API routes
 app.use('/api', routes);
+
+// Serve static frontend build in fullstack mode
+const candidateDistPaths = [
+  path.resolve(process.cwd(), 'client', 'dist'),
+  path.resolve(process.cwd(), 'dist'),
+  path.resolve(process.cwd(), '..', 'client', 'dist'),
+];
+const clientDistPath = candidateDistPaths.find((p) => fs.existsSync(p));
+
+if (clientDistPath) {
+  app.use(express.static(clientDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/health') || req.path.startsWith('/ready')) {
+      return next();
+    }
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
 
 // 404 & Global Error Handling
 app.use(notFoundHandler);

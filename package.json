@@ -1,0 +1,22 @@
+{
+  "name": "nawi-digital-metrology-system",
+  "version": "1.0.0",
+  "description": "Digital Metrology Test Report Generation System for Non-Automatic Weighing Instruments (NAWI) - OIML R-76:2006",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install:server": "npm --prefix server install",
+    "install:client": "npm --prefix client install",
+    "install:all": "npm run install:server && npm run install:client",
+    "build:client": "npm --prefix client run build",
+    "build": "npm run install:all && npm run build:client",
+    "render-build": "npm run install:all && npm run build:client",
+    "start": "node server/src/server.js",
+    "dev": "npm --prefix server run dev",
+    "seed": "npm --prefix server run seed",
+    "test": "npm --prefix server test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

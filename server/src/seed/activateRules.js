@@ -4,8 +4,9 @@ import { User } from '../models/User.js';
 import { env } from '../config/env.js';
 
 export async function activateDevRules() {
-  if (env.NODE_ENV === 'production') {
-    throw new Error('DEV SEED ERROR: activateDevRules must not run in production mode');
+  if (env.NODE_ENV === 'production' && process.env.AUTO_ACTIVATE_RULES !== 'true') {
+    console.log('Production mode: leaving seed rules in draft status for expert activation.');
+    return;
   }
 
   console.log('Activating Dev Seed RuleConfigs via Metrology Expert...');

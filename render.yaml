@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: nawi-digital-metrology
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm run render-build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: REPORT_INTEGRITY_SECRET
+        generateValue: true
+      - key: CRON_SECRET
+        generateValue: true
+      - key: AUTO_SEED
+        value: "true"
+      - key: AUTO_ACTIVATE_RULES
+        value: "true"
+      - key: CLIENT_ORIGIN
+        value: "*"

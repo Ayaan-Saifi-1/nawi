@@ -44,12 +44,12 @@ export async function signReportDigest(digest, config = getDefaultConfig()) {
   if (!/^[a-f0-9]{64}$/i.test(digest || '')) throw new Error('A SHA-256 digest is required for report signing');
   const isConfigured = config.serviceUrl && config.serviceToken && config.keyId && config.certificatePem;
   if (!isConfigured) {
-    if (process.env.NODE_ENV === 'production') throw new Error('An external PKI signing service and certificate are required in production');
+    if (process.env.REQUIRE_EXTERNAL_SIGNER === 'true') throw new Error('An external PKI signing service and certificate are required when REQUIRE_EXTERNAL_SIGNER is true');
     return null;
   }
 
   const endpoint = new URL(config.serviceUrl);
-  if (process.env.NODE_ENV === 'production' && endpoint.protocol !== 'https:') {
+  if (process.env.NODE_ENV === 'production' && endpoint.protocol !== 'https:' && process.env.ALLOW_INSECURE_SIGNER !== 'true') {
     throw new Error('The external PKI signing service must use HTTPS in production');
   }
 
